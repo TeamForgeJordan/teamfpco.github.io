@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forge Performance Co. | Strength is Forged</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- Primary Font: Inter -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+            rel="stylesheet">
+        <!-- Lucide Icons -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+
+        <style>
+            /* =========================================
+           CSS RESET & VARIABLES
+           ========================================= */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                /* BRAND PALETTE ADHERENCE */
+                --black: #0a0a0a;
+                /* Deepest Base */
+                --off-black: #121212;
+                /* Surface Level */
+                --steel: #2e2e33;
+                /* Dividers/Borders */
+                --pearl: #e5e5e5;
+                /* Primary Text */
+                --slate: #888890;
+                /* Secondary Text */
+
+                --copper: #B46E3D;
+                /* Accent: Emphasis Only */
+                --copper-dim: rgba(180, 110, 61, 0.1);
+                --copper-dark: #8a532e;
+
+                --nav-height: 80px;
+
+                /* TYPOGRAPHY */
+                --font-main: 'Inter', sans-serif;
+                --font-serif: 'Playfair Display', serif;
+                /* Used sparingly for SoulFuel/Quotes */
+            }
+
+            /* SCROLL SNAP IMPLEMENTATION */
+            html {
+                scroll-behavior: smooth;
+                font-size: 16px;
+                scroll-snap-type: y mandatory;
+                overflow-y: scroll;
+                height: 100%;
+            }
+
+            body {
+                font-family: var(--font-main);
+                background-color: var(--black);
+                color: var(--pearl);
+                overflow-x: hidden;
+                line-height: 1.6;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+
+                /* TEXTURE: Organic Slate/Stone (Earthy Vibe) */
+                background-image:
+                    linear-gradient(rgba(10, 10, 10, 0.93), rgba(10, 10, 10, 0.97)),
+                    url('https://images.unsplash.com/photo-1618588507085-c79565432917?auto=format&fit=crop&q=80');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+            }
+
+            /* LAYER: Subtle Noise (Grit/Texture) */
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0.3;
+            }
+
+            /* LAYER: Topographic Map (Terrain/Orientation) */
+            body::after {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0 C 20 10 40 10 50 20 C 60 30 70 20 80 10 C 90 0 100 10 100 20' stroke='%23333' stroke-width='0.5' fill='none' opacity='0.3'/%3E%3Cpath d='M0 30 C 30 40 50 30 70 40 C 80 50 90 40 100 30' stroke='%23333' stroke-width='0.5' fill='none' opacity='0.2'/%3E%3Cpath d='M0 60 C 20 50 40 70 60 60 C 80 50 100 70 100 60' stroke='%23333' stroke-width='0.5' fill='none' opacity='0.2'/%3E%3C/svg%3E");
+                background-size: 300px 300px;
+                pointer-events: none;
+                z-index: -1;
+                opacity: 0.2;
+            }
+
+            ::selection {
+                background-color: var(--copper);
+                color: white;
+            }
+
+            .container {
+                max-width: 1280px;
+                /* Auto margin top/bottom for safe vertical centering in flex container */
+                margin: auto;
+                padding: 0 1.5rem;
+                width: 100%;
+            }
+
+            /* Typography */
+            h1,
+            h2,
+            h3 {
+                font-family: var(--font-main);
+                font-weight: 800;
+                /* Heavy weight for Modern Tech feel */
+                letter-spacing: -0.02em;
+                line-height: 1.1;
+                text-transform: uppercase;
+            }
+
+            h4,
+            h5,
+            h6 {
+                font-family: var(--font-main);
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            p {
+                font-weight: 300;
+            }
+
+            /* GRADIENT TEXT: "Forged" */
+            .highlight {
+                background: linear-gradient(135deg, #B46E3D 10%, #ffc085 50%, #B46E3D 90%);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+                font-style: italic;
+                display: inline-block;
+            }
+
+            .section-label {
+                color: var(--copper);
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                font-size: 0.7rem;
+                margin-bottom: 1rem;
+                display: block;
+                opacity: 1;
+            }
+
+            /* Button Base */
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem 2rem;
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                position: relative;
+                z-index: 10;
+            }
+
+            .btn-primary {
+                background: var(--copper);
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background: var(--copper-dark);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(180, 110, 61, 0.2);
+            }
+
+            .btn-outline {
+                background: transparent;
+                color: var(--pearl);
+                border: 1px solid var(--steel);
+            }
+
+            .btn-outline:hover {
+                border-color: var(--copper);
+                color: var(--copper);
+                background: rgba(180, 110, 61, 0.05);
+            }
+
+            /* =========================================
+           NAVIGATION
+           ========================================= */
+            .navbar {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                z-index: 100;
+                transition: all 0.4s ease;
+                height: var(--nav-height);
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid transparent;
+            }
+
+            .navbar.scrolled {
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                height: 70px;
+            }
+
+            .nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            .logo img {
+                width: 12rem;
+                height: 12rem;
+                margin-top: 1rem;
+                object-fit: cover;
+                object-position: left;
+                background: transparent;
+            }
+
+            .logo svg {
+                width: 42px;
+                height: 42px;
+                fill: none;
+            }
+
+            .logo-path-hex {
+                stroke: var(--copper);
+                stroke-width: 2;
+            }
+
+            .logo-path-flame {
+                fill: var(--copper);
+            }
+
+            .logo-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .logo-main {
+                font-size: 1.25rem;
+                font-weight: 900;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: var(--pearl);
+                line-height: 1;
+            }
+
+            .logo-sub {
+                font-size: 0.6rem;
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: var(--copper);
+                font-weight: 700;
+                margin-top: 3px;
+            }
+
+            .nav-links {
+                display: none;
+                align-items: center;
+                /* Adaptive gap ensures links don't wrap on smaller screens */
+                gap: clamp(1rem, 2.5vw, 2.5rem);
+                flex-wrap: nowrap;
+            }
+
+            .nav-item {
+                position: relative;
+                padding: 1.5rem 0;
+                cursor: pointer;
+            }
+
+            .nav-link {
+                color: var(--pearl);
+                /* Adaptive font size prevents wrapping */
+                font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                text-decoration: none;
+                transition: color 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                white-space: nowrap;
+            }
+
+            .nav-link:hover {
+                color: var(--copper);
+            }
+
+            .dropdown-menu {
+                position: absolute;
+                top: 80%;
+                /* Moved up from 100% to connect better with parent link */
+                left: 50%;
+                transform: translateX(-50%) translateY(8px);
+                /* Subtle animation offset */
+                background: #0f0f0f;
+                border: 1px solid var(--steel);
+                min-width: 200px;
+                padding: 0.5rem 0;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                border-radius: 2px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+                z-index: 101;
+            }
+
+            .nav-item:hover .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateX(-50%) translateY(0);
+            }
+
+            .dropdown-item {
+                display: block;
+                padding: 0.75rem 1.5rem;
+                color: var(--slate);
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                text-decoration: none;
+                transition: all 0.2s;
+                white-space: nowrap;
+            }
+
+            .dropdown-item:hover {
+                background: var(--copper-dim);
+                color: var(--copper);
+                padding-left: 1.75rem;
+            }
+
+            .nav-cta {
+                background: transparent;
+                color: var(--copper);
+                /* Adaptive padding ensures button fits */
+                padding: 0.6rem clamp(0.5rem, 1.5vw, 1.2rem);
+                font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                border: 1px solid var(--copper);
+                border-radius: 2px;
+                text-decoration: none;
+                transition: all 0.3s;
+                margin-left: 0.5rem;
+                white-space: nowrap;
+            }
+
+            .nav-cta:hover {
+                background: var(--copper);
+                color: white;
+            }
+
+            .mobile-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--copper);
+                cursor: pointer;
+            }
+
+            @media (min-width: 1024px) {
+                .nav-links {
+                    display: flex;
+                }
+
+                .mobile-toggle {
+                    display: none;
+                }
+            }
+
+            /* Mobile Menu */
+            .mobile-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--black);
+                z-index: 99;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                display: flex;
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                overflow-y: auto;
+            }
+
+            .mobile-menu.active {
+                transform: translateX(0);
+            }
+
+            .mobile-link {
+                font-family: var(--font-main);
+                font-size: 1.5rem;
+                font-weight: 800;
+                letter-spacing: 0.02em;
+                color: var(--pearl);
+                text-decoration: none;
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--steel);
+                text-transform: uppercase;
+            }
+
+            .mobile-group {
+                margin: 1.5rem 0;
+            }
+
+            .mobile-group-label {
+                font-size: 0.7rem;
+                color: var(--copper);
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .mobile-sub-link {
+                font-size: 1rem;
+                color: var(--slate);
+                padding: 0.5rem 0 0.5rem 1rem;
+                display: block;
+                text-decoration: none;
+                letter-spacing: 0.02em;
+                border-left: 1px solid var(--steel);
+                transition: all 0.3s;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+
+            .mobile-sub-link:hover {
+                border-left-color: var(--copper);
+                color: var(--pearl);
+            }
+
+            .mobile-close {
+                position: absolute;
+                top: 1.5rem;
+                right: 1.5rem;
+                background: none;
+                border: none;
+                color: var(--pearl);
+                cursor: pointer;
+            }
+
+            /* =========================================
+           SCROLL SNAP SECTION LOGIC
+           ========================================= */
+            section,
+            .footer {
+                min-height: 100vh;
+                min-height: 100dvh;
+                scroll-snap-align: start;
+                scroll-snap-stop: always;
+                display: flex;
+                flex-direction: column;
+                /* Safe centering */
+                justify-content: center;
+                position: relative;
+                padding-top: var(--nav-height);
+                padding-bottom: 2rem;
+                border-bottom: none;
+            }
+
+            /* Subtle horizon separator */
+            section::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 15%;
+                width: 70%;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            }
+
+            /* =========================================
+           HERO SECTION
+           ========================================= */
+            .hero {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero-bg {
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+            }
+
+            .hero-bg img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: grayscale(100%) sepia(10%) contrast(1.1) brightness(0.4);
+                transform: scale(1.05);
+            }
+
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, rgba(20, 15, 10, 0.3) 0%, var(--black) 90%);
+                z-index: 1;
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 10;
+                max-width: 1280px;
+                width: 100%;
+                padding: 0 1.5rem;
+                text-align: center;
+                /* Center the hero content */
+                margin: 0 auto;
+            }
+
+            .hero-inner {
+                max-width: 60rem;
+                margin: 0 auto;
+            }
+
+            .hero-title {
+                font-size: clamp(3rem, 7vw, 6rem);
+                margin-bottom: 1.5rem;
+                line-height: 1;
+                font-weight: 900;
+            }
+
+            .hero-text {
+                font-family: var(--font-main);
+                font-size: clamp(1rem, 2vw, 1.25rem);
+                color: var(--slate);
+                margin: 0 auto 2.5rem;
+                max-width: 42rem;
+                font-weight: 300;
+                text-align: justify;
+            }
+
+            /* =========================================
+           SERVICES (ECOSYSTEM)
+           ========================================= */
+            .services-header {
+                margin-bottom: 3rem;
+                text-align: left;
+            }
+
+            @media(min-width: 768px) {
+                .services-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                }
+            }
+
+            .services-header h3 {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                font-weight: 800;
+            }
+
+            .service-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+            }
+
+            .service-card {
+                background: rgba(18, 18, 18, 0.8);
+                backdrop-filter: blur(8px);
+                padding: 2.5rem;
+                border: 1px solid var(--steel);
+                transition: all 0.4s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .service-card::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3px;
+                height: 100%;
+                background: var(--copper);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .service-card:hover::before {
+                opacity: 1;
+            }
+
+            .service-card:hover {
+                transform: translateY(-5px);
+                border-color: rgba(180, 110, 61, 0.4);
+                background: rgba(25, 25, 25, 0.9);
+            }
+
+            .service-icon {
+                color: var(--copper);
+                margin-bottom: 1.5rem;
+            }
+
+            .service-card h4 {
+                margin-bottom: 1rem;
+                font-size: 1.25rem;
+                color: var(--pearl);
+                font-weight: 800;
+                text-transform: uppercase;
+            }
+
+            .service-card p {
+                color: var(--slate);
+                font-size: 0.9rem;
+                line-height: 1.7;
+                font-weight: 300;
+                text-align: justify;
+            }
+
+            /* =========================================
+           SOULFUEL
+           ========================================= */
+            .soulfuel {
+                background: radial-gradient(circle at 80% 20%, rgba(28, 20, 16, 0.6) 0%, rgba(10, 10, 10, 0.9) 60%);
+            }
+
+            .soulfuel-content {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 5rem;
+                align-items: center;
+            }
+
+            #soulfuel-logo {
+                width: 5rem;
+                height: 5rem;
+                margin-bottom: 1rem;
+            }
+
+            @media (min-width: 992px) {
+                .soulfuel-content {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .soulfuel-text h3 {
+                font-family: var(--font-serif);
+                font-weight: 400;
+                font-style: italic;
+                font-size: clamp(3.5rem, 6vw, 5rem);
+                margin-bottom: 1.5rem;
+                color: var(--pearl);
+                line-height: 1;
+            }
+
+            .soulfuel-quote {
+                font-size: 1.3rem;
+                color: var(--copper);
+                margin-bottom: 2rem;
+                font-family: var(--font-serif);
+                font-weight: 400;
+                border-left: 2px solid var(--copper);
+                padding-left: 1.5rem;
+                line-height: 1.4;
+            }
+
+            .soulfuel-text p {
+                color: var(--slate);
+                margin-bottom: 2rem;
+                text-align: justify;
+            }
+
+            .sf-visual {
+                position: relative;
+                padding: 4rem;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                text-align: center;
+                background: rgba(20, 15, 10, 0.2);
+                backdrop-filter: blur(5px);
+            }
+
+            .sf-visual::before {
+                content: "";
+                position: absolute;
+                inset: -1px;
+                z-index: -1;
+                background: radial-gradient(circle at center, rgba(180, 110, 61, 0.15), transparent 70%);
+                opacity: 0.6;
+            }
+
+            /* =========================================
+           NORTH STAR METHOD
+           ========================================= */
+            .method {
+                background: transparent;
+                text-align: center;
+                /* Dot pattern reduced opacity for "Never Cluttered" rule */
+                background-image: radial-gradient(var(--steel) 1px, transparent 1px);
+                background-size: 40px 40px;
+            }
+
+            .method::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at center, transparent, var(--black) 85%);
+                pointer-events: none;
+            }
+
+            .method-header {
+                position: relative;
+                z-index: 2;
+                max-width: 700px;
+                margin: 0 auto 3rem;
+            }
+
+            .method-header h2 {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                font-weight: 900;
+            }
+
+            .pillars-grid {
+                position: relative;
+                z-index: 2;
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: left;
+            }
+
+            @media (min-width: 768px) {
+                .pillars-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .pillars-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    justify-content: center;
+                }
+            }
+
+            .pillar-card {
+                background: rgba(14, 14, 14, 0.7);
+                padding: 2rem;
+                border-left: 1px solid var(--steel);
+                transition: all 0.4s;
+                backdrop-filter: blur(4px);
+            }
+
+            .pillar-card:hover {
+                border-left-color: var(--copper);
+                background: linear-gradient(90deg, rgba(180, 110, 61, 0.05), transparent);
+            }
+
+            .pillar-num {
+                font-family: var(--font-main);
+                font-weight: 900;
+                font-size: 2.5rem;
+                font-style: italic;
+                color: var(--steel);
+                margin-bottom: 0.5rem;
+                display: block;
+                transition: color 0.3s;
+            }
+
+            .pillar-card:hover .pillar-num {
+                color: var(--copper);
+            }
+
+            .pillar-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                color: var(--pearl);
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+
+            .pillar-card p {
+                font-size: 0.85rem;
+                color: var(--slate);
+                text-align: justify;
+            }
+
+            /* =========================================
+           MEET THE FOUNDER
+           ========================================= */
+            .founder {
+                background: transparent;
+            }
+
+            .founder-wrapper {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 5rem;
+                align-items: center;
+            }
+
+            @media (min-width: 992px) {
+                .founder-wrapper {
+                    grid-template-columns: 450px 1fr;
+                }
+            }
+
+            .founder-image-container {
+                position: relative;
+            }
+
+            .founder-img {
+                width: 100%;
+                aspect-ratio: 4/5;
+                object-fit: cover;
+                /* Branding: Performance Tech Modern (Grayscale with slight warmth) */
+                filter: grayscale(100%) sepia(5%) contrast(1.1) brightness(0.9);
+                border-radius: 2px;
+                box-shadow: 20px 20px 0 rgba(255, 255, 255, 0.02);
+            }
+
+            .founder-quote-badge {
+                position: absolute;
+                bottom: -2rem;
+                right: -2rem;
+                background: var(--copper);
+                color: white;
+                padding: 2.5rem;
+                max-width: 300px;
+                font-family: var(--font-main);
+                font-weight: 200;
+                font-style: italic;
+                font-size: 0.8rem;
+                line-height: 1.4;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .founder-bio h3 {
+                font-size: 3.5rem;
+                margin-bottom: 2rem;
+                line-height: 1;
+                font-weight: 900;
+            }
+
+            .founder-bio p {
+                color: var(--slate);
+                margin-bottom: 1.5rem;
+                line-height: 1.8;
+                font-size: 1rem;
+                font-weight: 300;
+                text-align: justify;
+            }
+
+            .signature-area {
+                margin-top: 3rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                padding-top: 2rem;
+                display: flex;
+                gap: 4rem;
+            }
+
+            .sig-item h6 {
+                font-size: 0.7rem;
+                color: var(--copper);
+                margin-bottom: 0.5rem;
+            }
+
+            .sig-item span {
+                font-size: 1rem;
+                font-family: var(--font-main);
+                font-weight: 700;
+                color: var(--pearl);
+            }
+
+            /* =========================================
+           ABOUT US SECTION
+           ========================================= */
+            .about-section {
+                background: rgba(13, 13, 13, 0.6);
+                backdrop-filter: blur(8px);
+            }
+
+            .about-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            @media (min-width: 768px) {
+                .about-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+
+            .about-block {
+                padding-right: 2rem;
+            }
+
+            .about-block h4 {
+                color: var(--copper);
+                margin-bottom: 1.5rem;
+                font-size: 1rem;
+                letter-spacing: 0.2em;
+            }
+
+            .about-block p {
+                color: var(--slate);
+                font-size: 1.1rem;
+                line-height: 1.8;
+                font-weight: 300;
+                text-align: justify;
+            }
+
+            /* =========================================
+           CONTACT SECTION
+           ========================================= */
+            .contact-section {
+                background: rgba(10, 10, 10, 0.6);
+            }
+
+            .contact-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+                align-items: start;
+            }
+
+            .contact-info h2 {
+                font-size: clamp(2.5rem, 5vw, 3rem);
+                margin-bottom: 1.5rem;
+                line-height: 1.1;
+                font-weight: 800;
+            }
+
+            .contact-details {
+                margin-top: 3rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                color: var(--slate);
+                font-size: 1rem;
+                font-weight: 500;
+            }
+
+            .contact-item i {
+                color: var(--copper);
+            }
+
+            .contact-form {
+                background: rgba(18, 18, 18, 0.8);
+                padding: 2.5rem;
+                border: 1px solid var(--steel);
+                backdrop-filter: blur(8px);
+                border-radius: 2px;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                display: block;
+                color: var(--slate);
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 0.5rem;
+                font-weight: 700;
+            }
+
+            .form-control {
+                width: 100%;
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid var(--steel);
+                padding: 1rem;
+                color: var(--pearl);
+                font-family: var(--font-main);
+                font-size: 1rem;
+                transition: border-color 0.3s;
+                border-radius: 0;
+            }
+
+            .form-control:focus {
+                outline: none;
+                border-color: var(--copper);
+            }
+
+            select.form-control {
+                appearance: none;
+                -webkit-appearance: none;
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888890' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: right 1rem center;
+                background-size: 1em;
+            }
+
+            textarea.form-control {
+                resize: vertical;
+                min-height: 120px;
+            }
+
+            @media (max-width: 992px) {
+                .contact-container {
+                    grid-template-columns: 1fr;
+                    gap: 3rem;
+                }
+
+                .contact-info h2 {
+                    font-size: 2.5rem;
+                }
+            }
+
+            /* =========================================
+           FOOTER
+           ========================================= */
+            .footer {
+                background: rgba(5, 5, 5, 0.95);
+                padding-top: 0;
+                border-top: 1px solid var(--steel);
+            }
+
+            .footer-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 3rem;
+                margin-bottom: 5rem;
+                margin-top: 2rem;
+            }
+
+            .footer-brand span {
+                display: block;
+                margin-top: 1rem;
+                color: var(--slate);
+                font-size: 0.875rem;
+            }
+
+            .footer-links h5 {
+                color: var(--copper);
+                margin-bottom: 1.5rem;
+                font-size: 0.75rem;
+                letter-spacing: 0.2em;
+            }
+
+            .footer-links ul {
+                list-style: none;
+            }
+
+            .footer-links li {
+                margin-bottom: 1rem;
+            }
+
+            .footer-links a {
+                color: var(--slate);
+                text-decoration: none;
+                font-size: 0.875rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                transition: color 0.3s;
+            }
+
+            .footer-links a:hover {
+                color: var(--copper);
+            }
+
+            .footer-bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+                padding-top: 2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                font-size: 0.75rem;
+                color: var(--slate);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+            }
+
+            /* =========================================
+           RESPONSIVE UTILITIES
+           ========================================= */
+            @media (max-width: 768px) {
+                :root {
+                    --nav-height: 70px;
+                }
+
+                .hero-title {
+                    font-size: 2.8rem;
+                }
+
+                /* Responsive Section Height Handling */
+                section,
+                .footer {
+                    height: auto;
+                    min-height: 100dvh;
+                    justify-content: flex-start;
+                    padding-top: 100px;
+                }
+
+                .founder-quote-badge {
+                    position: relative;
+                    bottom: 0;
+                    right: 0;
+                    width: 100%;
+                    max-width: none;
+                    margin-top: 1rem;
+                }
+
+                .founder-wrapper {
+                    gap: 3rem;
+                }
+            }
+
+            /* Adjustment for short screens (laptops) to prevent cutoff */
+            @media (max-height: 800px) {
+                section {
+                    padding-top: 85px;
+                    padding-bottom: 1rem;
+                    justify-content: flex-start;
+                }
+
+                h1,
+                h2,
+                h3 {
+                    line-height: 1.1;
+                }
+
+                .hero-text,
+                .services-header,
+                .method-header {
+                    margin-bottom: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <!-- Logo with Custom Hex Flame -->
+                <a href="#home" class="logo">
+                    <img src="assets/images/logos/forge-blk-nobg-side.png" id="logo" alt="Forge Performance Co.">
+                </a>
+                <!-- <a href="#home" class="logo">
+                    <svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg">
+                        <path class="logo-path-hex" d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z" />
+                        <path class="logo-path-flame"
+                            d="M50 78 C62 78 68 65 68 55 C68 42 55 28 50 18 C45 28 32 42 32 55 C32 65 38 78 50 78 Z" />
+                    </svg>
+                    <div class="logo-text">
+                        <span class="logo-main">Forge</span>
+                        <span class="logo-sub">Performance Co.</span>
+                    </div>
+                </a> -->
+
+                <!-- Desktop Links -->
+                <div class="nav-links">
+                    <!-- Services & SoulFuel Group -->
+                    <div class="nav-item">
+                        <span class="nav-link">Services <i data-lucide="chevron-down"
+                                style="width:12px; opacity:0.5;"></i></span>
+                        <div class="dropdown-menu">
+                            <!-- <a href="#ecosystem" class="dropdown-item">Core Ecosystem</a> -->
+                            <a href="#soulfuel" class="dropdown-item">SoulFuel Identity</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#method" class="nav-link">North Star Method</a>
+                    </div>
+
+                    <!-- Explore Forge Dropdown -->
+                    <div class="nav-item">
+                        <span class="nav-link">Explore Forge <i data-lucide="chevron-down"
+                                style="width:12px; opacity:0.5;"></i></span>
+                        <div class="dropdown-menu">
+                            <a href="#founder" class="dropdown-item">Meet the Founder</a>
+                            <a href="#about" class="dropdown-item">About Us</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item">
+                        <a href="#contact" class="nav-link">Contact Us</a>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <a href="#contact" class="nav-cta">Let's Forge Your Potential</a>
+                </div>
+
+                <!-- Mobile Toggle -->
+                <button class="mobile-toggle" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-close" onclick="toggleMobileMenu()">
+                <i data-lucide="x"></i>
+            </button>
+
+            <div class="mobile-group">
+                <span class="mobile-group-label">Services</span>
+                <!-- <a href="#ecosystem" class="mobile-sub-link" onclick="toggleMobileMenu()">Core Ecosystem</a> -->
+                <a href="#soulfuel" class="mobile-sub-link" onclick="toggleMobileMenu()">SoulFuel</a>
+            </div>
+
+            <a href="#method" class="mobile-link" onclick="toggleMobileMenu()">North Star Method</a>
+
+            <div class="mobile-group">
+                <span class="mobile-group-label">Explore Forge</span>
+                <a href="#founder" class="mobile-sub-link" onclick="toggleMobileMenu()">Meet the Founder</a>
+                <a href="#about" class="mobile-sub-link" onclick="toggleMobileMenu()">About Us</a>
+            </div>
+
+            <a href="#contact" class="mobile-link" onclick="toggleMobileMenu()">Contact Us</a>
+            <a href="#contact" class="btn btn-primary" style="margin-top:2rem; width:100%;"
+                onclick="toggleMobileMenu()">Let's Forge Your Potential</a>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-bg">
+
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="hero-inner">
+                    <span class="section-label">Veteran Owned & Operated</span>
+                    <h1 class="hero-title">Strength is not found,<br>It is <span class="highlight">Forged.</span></h1>
+                    <p class="hero-text">We don't optimize surfaces; we forge identities. A modern performance ecosystem
+                        combining biological precision, elite discipline, and whole-human philosophy.</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="#method" class="btn btn-primary">Our Philosophy</a>
+                        <a href="#ecosystem" class="btn btn-outline">Explore Ecosystem</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section (Renamed Ecosystem) -->
+        <!-- <section id="ecosystem">
+            <div class="container">
+                <div class="services-header">
+                    <div>
+                        <span class="section-label">The Ecosystem</span>
+                        <h3>Tools for Transformation</h3>
+                    </div>
+                    <p style="color:var(--slate); max-width:400px; text-align:right;">An environment designed for
+                        biological repair and identity calibration.</p>
+                </div>
+
+                <div class="service-grid">
+                    <!-- Card 1 -->
+        <!-- <div class="service-card">
+            <div class="service-icon"><i data-lucide="thermometer-snowflake"></i></div>
+            <h4>Elite Recovery</h4>
+            <p>Cryotherapy, Infrared Sauna, and PEMF. We accelerate biological repair so you can demand more
+                from your system.</p>
+        </div> -->
+        <!-- Card 2 -->
+        <!-- <div class="service-card">
+            <div class="service-icon"><i data-lucide="brain-circuit"></i></div>
+            <h4>Cognitive Performance</h4>
+            <p>Mental resilience training and stress regulation protocols. The mind leads; the body follows.
+            </p>
+        </div> -->
+        <!-- Card 3 -->
+        <!-- <div class="service-card">
+            <div class="service-icon"><i data-lucide="activity"></i></div>
+            <h4>Biometric Insight</h4>
+            <p>AI-assisted data to monitor capacity. We don't guess about your health; we track it.</p>
+        </div> -->
+        <!-- Card 4 -->
+        <!-- <div class="service-card">
+            <div class="service-icon"><i data-lucide="users"></i></div>
+            <h4>The Forge</h4>
+            <p>A private facility for those who value precision over crowds. High-stakes effort in a
+                grounded environment.</p>
+        </div>
+        </div>
+        </div>
+        </section> -->
+
+        <!-- SoulFuel Section -->
+        <section id="soulfuel" class="soulfuel">
+            <div class="container">
+                <div class="soulfuel-content">
+                    <div class="soulfuel-text">
+                        <span class="section-label">Sub-Brand Identity</span>
+                        <h3>SoulFuel</h3>
+                        <div class="soulfuel-quote">"Ignite the internal spark that fuels transformation."</div>
+                        <p style="color:var(--slate); margin-bottom: 2rem; text-align: justify;">This is where the work
+                            begins. Integrative Health Coaching for high-performers seeking clarity, not just shortcuts.
+                            We move beyond habits into identity, aligning your internal fire with your external actions.
+                        </p>
+                        <a href="#contact" class="btn btn-outline">Ignite Your Potential</a>
+                    </div>
+                    <div class="sf-visual">
+                        <!-- <i data-lucide="flame"
+                            style="width:64px; height:64px; color:var(--copper); margin-bottom:1rem;"></i> -->
+                        <img src="./assets/images/logos/soulfuel-logo.png" id="soulfuel-logo">
+                        <h4
+                            style="font-family:var(--font-main); font-size:2rem; margin-bottom:0.5rem; text-transform:uppercase; font-weight:800;">
+                            Becoming</h4>
+                        <div style="width:40px; height:2px; background:var(--copper); margin:1rem auto;"></div>
+                        <p
+                            style="font-size:0.8rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--slate); font-weight:600;">
+                            Alignment • Resilience • Self-Trust</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- North Star Method (Philosophy) -->
+        <section id="method" class="method">
+            <div class="container">
+                <div class="method-header">
+                    <i data-lucide="compass"
+                        style="width:48px; height:48px; color:var(--copper); margin-bottom:1rem;"></i>
+                    <h2>The North Star Method</h2>
+                    <p style="color:var(--slate); font-size:1.1rem; margin-top:1rem;">The ideological blueprint behind
+                        Forge. It is not a program; it is a philosophy for decision-making and sustainable performance.
+                    </p>
+                </div>
+
+                <div class="pillars-grid">
+                    <!-- Pillar 1 -->
+                    <div class="pillar-card">
+                        <span class="pillar-num">01</span>
+                        <h4 class="pillar-title">Direction Before Intensity</h4>
+                        <p style="font-size:0.85rem; color:var(--slate);">Effort without orientation leads to burnout.
+                            We prioritize clarity of direction before increasing demand.</p>
+                    </div>
+                    <!-- Pillar 2 -->
+                    <div class="pillar-card">
+                        <span class="pillar-num">02</span>
+                        <h4 class="pillar-title">Identity Anchors Behavior</h4>
+                        <p style="font-size:0.85rem; color:var(--slate);">Sustainable performance emerges from who you
+                            are becoming, not just what you are chasing.</p>
+                    </div>
+                    <!-- Pillar 3 -->
+                    <div class="pillar-card">
+                        <span class="pillar-num">03</span>
+                        <h4 class="pillar-title">Alignment Over Optimization</h4>
+                        <p style="font-size:0.85rem; color:var(--slate);">More is not better. Better is better. We
+                            prioritize alignment across health, work, and leadership.</p>
+                    </div>
+                    <!-- Pillar 4 -->
+                    <div class="pillar-card">
+                        <span class="pillar-num">04</span>
+                        <h4 class="pillar-title">Structure Creates Freedom</h4>
+                        <p style="font-size:0.85rem; color:var(--slate);">Boundaries and systems are not
+                            restrictive—they create capacity, clarity, and resilience.</p>
+                    </div>
+                    <!-- Pillar 5 -->
+                    <div class="pillar-card">
+                        <span class="pillar-num">05</span>
+                        <h4 class="pillar-title">Human First</h4>
+                        <p style="font-size:0.85rem; color:var(--slate);">Performance is earned through respect for the
+                            human system. We never sacrifice the human for the metric.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Meet the Founder -->
+        <section id="founder" class="founder">
+            <div class="container">
+                <div class="founder-wrapper">
+                    <div class="founder-image-container">
+                        <!-- Updated Image Source to User File -->
+                        <img src="assets/images/founder-headshot.jpeg" alt="Founder" class="founder-img">
+                        <div class="founder-quote-badge">
+                            "Strength is not discovered. It is forged in the fire of intentional action."
+                        </div>
+                    </div>
+                    <div class="founder-bio">
+                        <span class="section-label">Meet the Founder</span>
+                        <h3>Discipline is Freedom.<br>Precision is Impact.</h3>
+                        <div style="width:60px; height:3px; background:var(--copper); margin: 2rem 0;"></div>
+                        <p>Forge Performance Co. was built on the belief that strength is created, not discovered. As a
+                            Marine Corps veteran, technologist, and integrative health coach, I have lived in multiple
+                            worlds: discipline, precision, performance, and deep human potential.</p>
+                        <p>Forge represents the process every person must go through to unlock their fullest potential.
+                            The pressure, the heat, the refinement, the alignment.</p>
+
+                        <div class="signature-area">
+                            <div class="sig-item">
+                                <h6>Role</h6>
+                                <span>Founder & Integrative Health Coach</span>
+                            </div>
+                            <div class="sig-item">
+                                <h6>Background</h6>
+                                <span>USMC Veteran</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <span class="section-label">About Forge</span>
+                <h2 style="font-size: 2.5rem; margin-bottom: 3rem;">Purpose-Driven Performance</h2>
+                <div class="about-grid">
+                    <div class="about-block">
+                        <h4>Our Mission</h4>
+                        <p>Forge Performance Co. exists to help people live and lead in alignment by building
+                            disciplined systems, resilient identities, and human-centered performance that lasts. We
+                            guide individuals through intentional structure so they can perform sustainably across life,
+                            health, and work—without burnout.</p>
+                    </div>
+                    <div class="about-block">
+                        <h4>Our Vision</h4>
+                        <p>Our vision is to build a modern performance ecosystem where discipline supports humanity,
+                            technology supports people, and identity—not pressure—drives lasting success. We aim to
+                            redefine performance by integrating health, leadership, and systems thinking.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <span class="section-label">Initiate Protocol</span>
+                        <h2>Ready to Forge<br>Your Potential?</h2>
+                        <p
+                            style="color:var(--slate); max-width:400px; margin-bottom:2rem; line-height: 1.7; text-align: justify;">
+                            Transformation requires action. Whether you're interested in the Forge ecosystem or SoulFuel
+                            coaching, send us a message to begin the application process.
+                        </p>
+
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <i data-lucide="map-pin"></i>
+                                <span>Serving Northwest Arkansas</span>
+                            </div>
+                            <div class="contact-item">
+                                <i data-lucide="mail"></i>
+                                <span>info@forgeperformance.co</span>
+                            </div>
+                            <div class="contact-item">
+                                <i data-lucide="clock"></i>
+                                <span>Mon-Fri: 06:00 - 18:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="ENTER YOUR NAME">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="ENTER YOUR EMAIL">
+                        </div>
+                        <div class="form-group">
+                            <label>Target</label>
+                            <select class="form-control">
+                                <option>SoulFuel Coaching</option>
+                                <option>The Forge Facility</option>
+                                <option>General Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" placeholder="TELL US ABOUT YOUR GOALS..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div style="display:flex; align-items:center; gap:0.75rem;">
+                            <svg width="32" height="32" viewBox="0 0 100 115" style="fill:none;">
+                                <path class="logo-path-hex" d="M50 5 L95 27.5 L95 72.5 L50 95 L5 72.5 L5 27.5 Z"
+                                    stroke-width="4" />
+                                <path class="logo-path-flame"
+                                    d="M50 78 C62 78 68 65 68 55 C68 42 55 28 50 18 C45 28 32 42 32 55 C32 65 38 78 50 78 Z" />
+                            </svg>
+                            <h4 style="font-size:1.25rem; color:var(--pearl);">Forge</h4>
+                        </div>
+                        <span style="font-weight:700;">Performance Co.</span>
+                        <p style="margin-top:1rem; color:var(--slate); font-size:0.8rem; line-height:1.6;">
+                            Weatherford, TX<br>
+                            Human-First. Performance Always.
+                        </p>
+                    </div>
+
+                    <div class="footer-links">
+                        <h5>Ecosystem</h5>
+                        <ul>
+                            <li><a href="#ecosystem">Services</a></li>
+                            <li><a href="#soulfuel">SoulFuel</a></li>
+                            <li><a href="#method">North Star Method</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h5>Company</h5>
+                        <ul>
+                            <li><a href="#founder">Meet the Founder</a></li>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h5>Connect</h5>
+                        <ul>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">LinkedIn</a></li>
+                            <li><a href="#">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <span>&copy; 2026 Forge Performance Co.</span>
+                    <span>Strength is not found, it is forged.</span>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            // Initialize Icons
+            lucide.createIcons();
+
+            // Navbar Scroll Effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile Menu Logic
+            function toggleMobileMenu() {
+                const menu = document.getElementById('mobileMenu');
+                menu.classList.toggle('active');
+
+                // Toggle body scroll
+                if (menu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // Hide Nav CTA when intersecting with Contact Section
+            const navCta = document.querySelector('.nav-cta');
+            const contactSection = document.getElementById('contact');
+
+            if (navCta && contactSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            navCta.style.opacity = '0';
+                            navCta.style.pointerEvents = 'none';
+                        } else {
+                            navCta.style.opacity = '1';
+                            navCta.style.pointerEvents = 'auto';
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(contactSection);
+            }
+        </script>
+    </body>
+
+</html>
