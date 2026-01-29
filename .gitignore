@@ -3,3 +3,6 @@ settings.json
 
 # macOS files
 .DS_Store
+
+# VSCode
+.vscode
