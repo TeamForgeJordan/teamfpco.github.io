@@ -247,6 +247,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: width .3s var(--ease), height .3s var(--ease), border-color .3s;
 }
 .c-ring.large { width: 50px; height: 50px; border-color: rgba(180, 110, 61, .7); }
+@media (max-width: 1024px) { .c-dot, .c-ring { display: none; } }
 
 /* ═══════════════════════════════════════════
    NAVIGATION
@@ -2435,23 +2436,25 @@ function closeAbout() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAbout(); });
 
-// ── Custom cursor ──────────────────────────────────
-const dot  = document.getElementById('cDot');
-const ring = document.getElementById('cRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-});
-(function tick() {
-  rx += (mx - rx) * .11; ry += (my - ry) * .11;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  requestAnimationFrame(tick);
-})();
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('large'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('large'));
-});
+// ── Custom cursor (desktop only) ───────────────────
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const dot  = document.getElementById('cDot');
+  const ring = document.getElementById('cRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  (function tick() {
+    rx += (mx - rx) * .11; ry += (my - ry) * .11;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(tick);
+  })();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('large'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('large'));
+  });
+}
 
 // ── Scroll to top ──────────────────────────
 const scrollTopBtn = document.getElementById('scrollTop');
