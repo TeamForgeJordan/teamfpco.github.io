@@ -88,8 +88,8 @@ Font sizes use `clamp()` for fluid scaling — never fixed px for headlines.
 
 ### Logo
 Hexagon + Copper Flame
-- `assets/alt_primary_logo_transparent.png` — primary (nav, footer, overlays) ✅
-- `assets/primary_logo_transparent.png` — alternate
+- `assets/images/alt_primary_logo_transparent.png` — primary (nav, footer, overlays) ✅
+- `assets/images/primary_logo_transparent.png` — alternate
 
 ## Sub-Brand Identities
 
@@ -167,11 +167,11 @@ Hexagon + Copper Flame
 ## Assets
 ```
 assets/
-├── alt_primary_logo_transparent.png  — primary Forge logo (nav, footer, overlays) ✅
-├── primary_logo_transparent.png      — alternate Forge logo
 └── images/
-    ├── founder-headshot.jpg          — PENDING upload
-    └── logo-forgedforward.png        — Forged Forward podcast logo (pending placement)
+    ├── alt_primary_logo_transparent.png  — primary Forge logo (nav, footer, overlays) ✅
+    ├── primary_logo_transparent.png      — alternate Forge logo
+    ├── founder-headshot.jpeg             — PENDING upload
+    └── logo-forgedforward.png            — Forged Forward podcast logo (pending placement)
 ```
 
 ## North Star Method
