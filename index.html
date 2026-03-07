@@ -479,6 +479,18 @@ section { padding: 130px 48px; }
 
 @keyframes wordReveal { to { opacity: 1; transform: translateY(0) skewY(0); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes markReveal {
+  from { opacity: 0; transform: translateY(-44%) rotate(-8deg); }
+  to   { opacity: .09; transform: translateY(-50%) rotate(-8deg); }
+}
+.hero-mark {
+  position: absolute; right: 4%; top: 50%;
+  width: 580px; height: auto;
+  pointer-events: none; z-index: 1;
+  animation: markReveal 1.8s var(--ease) 1.3s both;
+}
+@media (max-width: 1100px) { .hero-mark { width: 400px; right: 0; } }
+@media (max-width: 768px)  { .hero-mark { width: 260px; right: -6%; opacity: .06; } }
 
 /* ═══════════════════════════════════════════
    MARQUEE
@@ -1714,6 +1726,7 @@ footer {
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-scan"></div>
+  <img src="assets/images/primary_logo_transparent_no_txt.png" alt="" class="hero-mark" aria-hidden="true"/>
 
   <div class="hero-content">
     <h1 class="hero-h1">
