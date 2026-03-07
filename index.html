@@ -317,11 +317,16 @@ nav.scrolled {
 }
 .mob-link:hover { color: var(--copper); }
 .mob-close {
-  position: absolute; top: 28px; right: 36px;
-  font-size: 26px; color: var(--dim); cursor: pointer;
-  font-family: var(--f-head); font-weight: 300; transition: color .2s;
+  position: absolute; top: 24px; right: 24px;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: var(--pearl); cursor: pointer;
+  border: 1px solid rgba(240,237,232,.2);
+  transition: color .2s, border-color .2s;
+  background: none; z-index: 101;
 }
-.mob-close:hover { color: var(--pearl); }
+.mob-close:hover { color: var(--copper); border-color: var(--copper); }
+.hamburger.hidden { opacity: 0; pointer-events: none; }
 
 /* ═══════════════════════════════════════════
    SHARED UTILITIES
@@ -1651,11 +1656,7 @@ footer {
 <nav id="nav">
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">
-      <svg class="nav-mark" viewBox="0 0 48 48" fill="none">
-        <polygon points="24,2 45,13.5 45,34.5 24,46 3,34.5 3,13.5" fill="#0f0f0f" stroke="#b46e3d" stroke-width="1.4"/>
-        <polygon points="24,8 40,17 40,31 24,40 8,31 8,17" fill="none" stroke="#b46e3d" stroke-width=".5" opacity=".3"/>
-        <path d="M24 12 C19.5 18 17 22 19.5 26.5 C21 29 22.5 30 24 31 C24 31 23.5 28 22.5 26 C24.5 27.5 26 30 24 33 C27.5 30.5 29 27 27.5 24 C29.5 26.5 29 30 26.5 33 C31 29.5 31 24 29 21 C28 23 27 23.5 28 21 C27 20 25 15.5 24 12Z" fill="#b46e3d"/>
-      </svg>
+      <img src="assets/alt_primary_logo_transparent.png" alt="Forge Performance Co." class="nav-mark" style="width:40px;height:40px;object-fit:contain;"/>
       <div class="nav-wordmark">Forge <em>Performance Co.</em></div>
     </a>
 
@@ -1911,10 +1912,7 @@ footer {
     <div class="footer-top">
       <div>
         <div class="nav-logo">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-            <polygon points="24,2 45,13.5 45,34.5 24,46 3,34.5 3,13.5" fill="#0f0f0f" stroke="#b46e3d" stroke-width="1.4"/>
-            <path d="M24 12 C19.5 18 17 22 19.5 26.5 C21 29 22.5 30 24 31 C24 31 23.5 28 22.5 26 C24.5 27.5 26 30 24 33 C27.5 30.5 29 27 27.5 24 C29.5 26.5 29 30 26.5 33 C31 29.5 31 24 29 21 C28 23 27 23.5 28 21 C27 20 25 15.5 24 12Z" fill="#b46e3d"/>
-          </svg>
+          <img src="assets/alt_primary_logo_transparent.png" alt="Forge Performance Co." style="width:32px;height:32px;object-fit:contain;"/>
           <div class="nav-wordmark">Forge <em>Performance Co.</em></div>
         </div>
         <div class="footer-brand-statement">Strength Is<br>Not Found.<br>It Is Forged.</div>
@@ -1965,10 +1963,7 @@ footer {
 <div class="about-overlay" id="aboutOverlay">
   <div class="about-nav">
     <div class="about-nav-logo">
-      <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-        <polygon points="24,2 45,13.5 45,34.5 24,46 3,34.5 3,13.5" fill="#0f0f0f" stroke="#b46e3d" stroke-width="1.4"/>
-        <path d="M24 12 C19.5 18 17 22 19.5 26.5 C21 29 22.5 30 24 31 C24 31 23.5 28 22.5 26 C24.5 27.5 26 30 24 33 C27.5 30.5 29 27 27.5 24 C29.5 26.5 29 30 26.5 33 C31 29.5 31 24 29 21 C28 23 27 23.5 28 21 C27 20 25 15.5 24 12Z" fill="#b46e3d"/>
-      </svg>
+      <img src="assets/alt_primary_logo_transparent.png" alt="Forge Performance Co." style="width:32px;height:32px;object-fit:contain;"/>
       <div class="about-nav-wordmark">Forge <em>Performance Co.</em></div>
     </div>
     <button class="about-close" onclick="closeAbout()">Close <div class="about-close-x">✕</div></button>
@@ -2474,9 +2469,15 @@ window.addEventListener('scroll', () => {
 const ham    = document.getElementById('hamburger');
 const mobNav = document.getElementById('mobNav');
 const mobCl  = document.getElementById('mobClose');
-ham.addEventListener('click',   () => mobNav.classList.add('open'));
+ham.addEventListener('click', () => {
+  mobNav.classList.add('open');
+  ham.classList.add('hidden');
+});
 mobCl.addEventListener('click', closeMob);
-function closeMob() { mobNav.classList.remove('open'); }
+function closeMob() {
+  mobNav.classList.remove('open');
+  ham.classList.remove('hidden');
+}
 
 // ── Scroll reveal ──────────────────────────────────
 const ro = new IntersectionObserver(entries => {
