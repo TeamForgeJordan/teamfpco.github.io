@@ -1726,6 +1726,55 @@ footer {
   .award-recognition-block { padding: 20px; }
 }
 
+/* Founder credential grid */
+.founder-creds {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(240,237,232,.07);
+  border: 1px solid rgba(240,237,232,.07);
+  margin: 32px 0;
+}
+.founder-cred-cell {
+  padding: 20px 18px;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.founder-cred-num {
+  font-family: var(--f-head);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 2px;
+}
+.founder-cred-label {
+  font-family: var(--f-head);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.3;
+}
+.founder-cred-sub {
+  font-family: var(--f-body);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: .05em;
+  color: var(--dim);
+  line-height: 1.4;
+}
+@media (max-width: 1100px) {
+  .founder-creds { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .founder-creds { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* Small mobile — 480px */
 @media (max-width: 480px) {
   section { padding: 64px 20px; }
@@ -1913,12 +1962,27 @@ footer {
       <h2 class="founder-name">Discipline<br>Is Freedom.</h2>
       <p class="founder-body">Forge Performance Co. was built on the belief that strength is created, not discovered. As a Marine Corps veteran, technologist, and integrative health coach, I have lived in multiple worlds — discipline, precision, performance, and deep human potential.</p>
       <p class="founder-body">Forge represents the process every person must go through to unlock their fullest potential. The pressure. The heat. The refinement. The alignment.</p>
-      <div class="founder-tags">
-        <span class="founder-tag">USMC Veteran</span>
-        <span class="founder-tag">Certified Integrative Health Coach</span>
-        <span class="founder-tag">Technologist</span>
-        <span class="founder-tag">Systems Thinker</span>
-        <span class="founder-tag">Integrative Coach</span>
+      <div class="founder-creds">
+        <div class="founder-cred-cell">
+          <div class="founder-cred-num">01</div>
+          <div class="founder-cred-label">USMC Veteran</div>
+          <div class="founder-cred-sub">Discipline at the source</div>
+        </div>
+        <div class="founder-cred-cell">
+          <div class="founder-cred-num">02</div>
+          <div class="founder-cred-label">Certified IHC</div>
+          <div class="founder-cred-sub">Identity-level transformation</div>
+        </div>
+        <div class="founder-cred-cell">
+          <div class="founder-cred-num">03</div>
+          <div class="founder-cred-label">Technologist</div>
+          <div class="founder-cred-sub">Enterprise systems thinking</div>
+        </div>
+        <div class="founder-cred-cell">
+          <div class="founder-cred-num">&#127942;</div>
+          <div class="founder-cred-label">AI Innovate Award</div>
+          <div class="founder-cred-sub">Tyson Foods &middot; F100 &middot; 2025</div>
+        </div>
       </div>
       <div class="founder-quote">
         <p>"Strength is not discovered. It is forged in the fire of intentional action."</p>
