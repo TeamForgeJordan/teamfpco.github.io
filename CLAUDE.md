@@ -42,6 +42,13 @@ FORGE PERFORMANCE CO.
 **Jordan** — Marine Corps Veteran · Certified Integrative Health Coach · Technologist · Systems Thinker
 Contact: jordan@teamfpco.com | NW Arkansas · Remote Worldwide | Mon–Fri · 06:00–18:00 CST
 
+### Award
+**Advancing AI (Innovate) Award — Tyson Foods · 2026**
+Selected by peers and leadership across Tyson Foods (Fortune 100) for meaningfully driving AI adoption across the organization. Recognizes individuals who guided teams through adoption, built scalable usage frameworks, and helped move organizations from AI curiosity to AI capability.
+- This is Jordan's personal credential — not a Forge Intelligence client relationship
+- Referenced in: founder credential grid (Meet the Founder section) and #overlay-intelligence recognition block
+- Never imply Tyson Foods was a Forge Intelligence client
+
 ## Brand Voice & Tone
 
 Direct, confident, grounded in lived experience. Motivational without being hollow. Identity-focused. Never hype.
