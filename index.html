@@ -2690,11 +2690,10 @@ async function handleSubmit() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + window.CRM_API_KEY },
       body: JSON.stringify({
-        firstName: n,
-        lastName:  ln,
-        email:     e,
-        interest:  i,
-        message:   msg
+        name:    (n + (ln ? ' ' + ln : '')).trim(),
+        email:   e,
+        message: msg,
+        source:  i || 'website'
       })
     });
 
