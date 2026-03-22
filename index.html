@@ -1465,18 +1465,56 @@ section { padding: 130px 48px; }
 }
 .f-submit:hover { background: var(--ember); transform: translateY(-2px); }
 .form-success {
-  display: none; text-align: center; padding: 64px 40px; background: var(--steel);
+  display: none; flex-direction: column; align-items: center;
+  text-align: center; padding: 64px 40px; gap: 28px; background: var(--steel);
 }
-.form-success-icon { font-size: 48px; margin-bottom: 20px; }
-.form-success-title {
-  font-family: var(--f-head); font-weight: 900; font-size: 42px;
-  letter-spacing: -.02em; text-transform: uppercase;
-  color: var(--white); margin-bottom: 12px;
-}
+.form-success-logo { width: 210px; height: auto; object-fit: contain; }
 .form-success-body {
-  font-family: var(--f-body); font-size: var(--text-base); font-weight: 300;
-  color: rgba(240,237,232,.65);
+  font-family: var(--f-head); font-size: clamp(14px, 1.6vw, 18px); font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--copper);
 }
+.f-submit-again {
+  background: transparent; color: var(--copper);
+  font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 14px 28px; cursor: pointer;
+  border: 1px solid var(--copper);
+  transition: background .25s, color .25s;
+}
+.f-submit-again:hover { background: var(--copper); color: var(--black); }
+
+/* Interest pills */
+.f-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+.f-pill {
+  background: transparent; border: 1px solid var(--copper);
+  color: var(--pearl); font-family: var(--f-head); font-size: var(--text-kicker);
+  font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  padding: 10px 18px; cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.f-pill.active { background: var(--copper); color: var(--black); }
+.f-pill:hover:not(.active) { background: rgba(180,110,61,.12); }
+.f-pill-error {
+  font-family: var(--f-body); font-size: var(--text-sm); font-weight: 300;
+  color: #e06060; margin-top: 2px;
+}
+
+/* Email typo suggestion */
+.f-email-suggest {
+  display: none; align-items: center; flex-wrap: wrap; gap: 10px;
+  font-family: var(--f-body); font-size: var(--text-sm); font-weight: 300;
+  color: var(--pearl); background: rgba(180,110,61,.08);
+  border: 1px solid rgba(180,110,61,.3); padding: 10px 14px;
+}
+.f-email-suggest span { flex: 1; }
+.f-email-fix {
+  background: transparent; border: 1px solid var(--copper); color: var(--copper);
+  font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700;
+  letter-spacing: .15em; text-transform: uppercase;
+  padding: 6px 12px; cursor: pointer; white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+.f-email-fix:hover { background: var(--copper); color: var(--black); }
 
 /* ═══════════════════════════════════════════
    FOOTER
@@ -2048,30 +2086,29 @@ footer {
           <div class="f-group">
             <label class="f-label">Email Address</label>
             <input class="f-input" type="email" placeholder="you@email.com" id="fe"/>
+            <div class="f-email-suggest" id="email-suggest"></div>
           </div>
           <div class="f-group">
             <label class="f-label">Area of Interest</label>
-            <select class="f-select" id="fi">
-              <option value="" disabled selected>Select a service…</option>
-              <option>SoulFuel</option>
-              <option>Forge Intelligence</option>
-              <option>Forged Forward Podcast</option>
-              <option>General Inquiry</option>
-            </select>
+            <div class="f-pills" id="fi-pills">
+              <button type="button" class="f-pill" data-value="Forge Intelligence">Forge Intelligence</button>
+              <button type="button" class="f-pill" data-value="SoulFuel">SoulFuel</button>
+              <button type="button" class="f-pill" data-value="Forged Forward">Forged Forward</button>
+              <button type="button" class="f-pill" data-value="General">General</button>
+            </div>
+            <div class="f-pill-error" id="pill-error" style="display:none">Please select at least one area of interest.</div>
           </div>
           <div class="f-group">
             <label class="f-label">Your Message</label>
             <textarea class="f-textarea" placeholder="Tell me where you are and what you're working toward…"></textarea>
           </div>
           <button class="f-submit" onclick="handleSubmit()">Send Message →</button>
-          <div id="form-success"></div>
-          <div id="form-error"></div>
         </div>
 
         <div class="form-success" id="fSuccess">
-          <div class="form-success-icon">🔥</div>
-          <div class="form-success-title">Message Received.</div>
-          <p class="form-success-body">You'll hear back within 24 hours. The forge is ready.</p>
+          <img src="assets/images/primary_logo_banner_transparent.png" alt="Forge Performance Co." class="form-success-logo"/>
+          <p class="form-success-body">Thanks for reaching out. We'll be in touch soon.</p>
+          <button class="f-submit-again" onclick="resetForm()">Submit Another Message</button>
         </div>
       </div>
     </div>
@@ -2668,17 +2705,59 @@ const ro = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
 // ── Contact form ───────────────────────────────────
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const TYPO_MAP = {
+  'gmial.com':    'gmail.com',
+  'gmai.com':     'gmail.com',
+  'yahooo.com':   'yahoo.com',
+  'outlok.com':   'outlook.com',
+  'outllook.com': 'outlook.com',
+  'hotmial.com':  'hotmail.com',
+};
+
+// Pill toggle
+document.querySelectorAll('.f-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    pill.classList.toggle('active');
+    document.getElementById('pill-error').style.display = 'none';
+  });
+});
+
+// Email typo check on blur
+document.getElementById('fe').addEventListener('blur', () => {
+  const val     = document.getElementById('fe').value.trim();
+  const suggest = document.getElementById('email-suggest');
+  suggest.style.display = 'none';
+  if (!val) return;
+  const atIdx = val.lastIndexOf('@');
+  if (atIdx < 0) return;
+  const domain  = val.slice(atIdx + 1).toLowerCase();
+  const fix     = TYPO_MAP[domain];
+  if (!fix) return;
+  const corrected = val.slice(0, atIdx + 1) + fix;
+  suggest.innerHTML = `<span>Did you mean <strong>${corrected}</strong>?</span><button class="f-email-fix">Yes, fix it</button>`;
+  suggest.querySelector('.f-email-fix').addEventListener('click', () => {
+    document.getElementById('fe').value = corrected;
+    suggest.style.display = 'none';
+  });
+  suggest.style.display = 'flex';
+});
+
 async function handleSubmit() {
-  const n  = document.getElementById('fn').value.trim();
-  const e  = document.getElementById('fe').value.trim();
-  const ln = document.querySelector('#cForm .f-row .f-group:last-child .f-input').value.trim();
-  const i  = document.getElementById('fi').value;
+  const n   = document.getElementById('fn').value.trim();
+  const e   = document.getElementById('fe').value.trim();
+  const ln  = document.querySelector('#cForm .f-row .f-group:last-child .f-input').value.trim();
   const msg = document.querySelector('.f-textarea').value.trim();
 
-  if (!n || !e || !i) {
-    alert('Please fill in your name, email, and area of interest.');
+  if (!n) { alert('Please fill in your first name.'); return; }
+  if (!EMAIL_RE.test(e)) { alert('Please enter a valid email address.'); return; }
+
+  const activePills = [...document.querySelectorAll('.f-pill.active')];
+  if (!activePills.length) {
+    document.getElementById('pill-error').style.display = 'block';
     return;
   }
+  const source = activePills.map(p => p.dataset.value).join(', ');
 
   const btn = document.querySelector('.f-submit');
   btn.textContent = 'Sending…';
@@ -2693,13 +2772,13 @@ async function handleSubmit() {
         name:    (n + (ln ? ' ' + ln : '')).trim(),
         email:   e,
         message: msg,
-        source:  i || 'website'
+        source:  source
       })
     });
 
     if (res.ok) {
       document.getElementById('cForm').style.display    = 'none';
-      document.getElementById('fSuccess').style.display = 'block';
+      document.getElementById('fSuccess').style.display = 'flex';
     } else {
       throw new Error('Server error');
     }
@@ -2708,6 +2787,21 @@ async function handleSubmit() {
     btn.disabled = false;
     alert('Something went wrong. Please email jordan@teamfpco.com directly.');
   }
+}
+
+function resetForm() {
+  document.getElementById('fn').value = '';
+  document.getElementById('fe').value = '';
+  document.querySelector('#cForm .f-row .f-group:last-child .f-input').value = '';
+  document.querySelector('.f-textarea').value = '';
+  document.querySelectorAll('.f-pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('email-suggest').style.display = 'none';
+  document.getElementById('pill-error').style.display    = 'none';
+  const btn = document.querySelector('.f-submit');
+  btn.textContent = 'Send Message →';
+  btn.disabled = false;
+  document.getElementById('fSuccess').style.display = 'none';
+  document.getElementById('cForm').style.display    = 'flex';
 }
 </script>
 <script>window.CRM_API_KEY = 'fpco_23edc96f8b10afa51c174172ffa0587703c445b8c93034bed715149588573f4c'</script>
