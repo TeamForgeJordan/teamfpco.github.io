@@ -2064,6 +2064,8 @@ footer {
             <textarea class="f-textarea" placeholder="Tell me where you are and what you're working toward…"></textarea>
           </div>
           <button class="f-submit" onclick="handleSubmit()">Send Message →</button>
+          <div id="form-success"></div>
+          <div id="form-error"></div>
         </div>
 
         <div class="form-success" id="fSuccess">
@@ -2683,9 +2685,10 @@ async function handleSubmit() {
   btn.disabled = true;
 
   try {
-    const res = await fetch('https://formspree.io/f/mnjgqrnb', {
+    // const FORMSPREE_ID = 'mnjgqrnb';
+    const res = await fetch('https://api.teamfpco.com/form-submissions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + window.CRM_API_KEY },
       body: JSON.stringify({
         firstName: n,
         lastName:  ln,
@@ -2708,5 +2711,6 @@ async function handleSubmit() {
   }
 }
 </script>
+<script>window.CRM_API_KEY = 'fpco_23edc96f8b10afa51c174172ffa0587703c445b8c93034bed715149588573f4c'</script>
 </body>
 </html>
