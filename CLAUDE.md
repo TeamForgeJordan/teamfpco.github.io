@@ -1,214 +1,147 @@
-# CLAUDE.md
+cd /path/to/forge-com
+cat > CLAUDE.md << 'EOF'
+# Forge Performance Co. — CRM Project
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Brand
+- Company: Forge Performance Co. (teamfpco.com)
+- Founder: Jordan, Marine Corps veteran, NBHWC certified
+- Sub-brands: Forge Intelligence (AI ethics consulting), SoulFuel (integrative
+  health coaching), Forged Forward (podcast)
+- Voice: direct, military precision, no fluff
 
-## Project Overview
-Single-page marketing website for Forge Performance Co., a premium performance ecosystem brand.
-- **Live URL:** https://teamfpco.com
-- **Repo:** https://github.com/TeamForgeJordan/teamfpco.github.io
-- **Primary file:** `index.html` (all HTML, CSS, and JS in one file — no build tools, no frameworks)
-- **Assets:** `assets/` folder for images and logos
-- **Hosting:** GitHub Pages — changes go live ~30 seconds after `git push`
+## Design system
+- Background: #0F0F0F (Forge Black)
+- Accent: #B46E3D (Aged Copper)
+- Warm highlight: #D4895A (Ember Glow)
+- Surface: #2B2B2E (Steel Gray)
+- Surface 2: #3E454C (Smoke Slate)
+- Text primary: #F4F4F4 (Iron Pearl)
+- Text secondary: #C9CED6 (Metallic Silver)
+- Border: #2B2B2E
+- Fonts: Montserrat Bold/SemiBold (headings), Inter Regular/Medium (body)
+- Border radius: 6px
 
-## Development
+## Tech stack
+- API: Cloudflare Workers + D1 (TypeScript, Hono router)
+- Dashboard: React + Vite → Cloudflare Pages
+- Auth: Custom JWT session (30-day), login at admin.teamfpco.com/login
+  - Sign out in nav, password reset via Resend to jordan@teamfpco.com
+  - Cloudflare Access has been removed — custom auth only
+- Email: Resend (verified on teamfpco.com domain)
+- Automation: Make.com (not yet connected — holding until clear use case)
+- Deployment: GitHub Actions (auto-deploy on push to main)
 
-No build step. Open `index.html` directly in a browser, or serve locally:
+## Live URLs
+- Dashboard: https://admin.teamfpco.com (custom JWT auth, login at /login)
+- API: https://api.teamfpco.com
+- Website: https://teamfpco.com (GitHub Pages, separate repo: teamfpco.github.io)
 
-```bash
-python3 -m http.server 8080
-# visit http://localhost:8080
-```
+## GitHub
+- Repo: TeamForgeJordan/forge-com (private)
+- Auto-deploy: .github/workflows/deploy-dashboard.yml and deploy-api.yml
+- Push to main triggers automatic build and deploy for both API and dashboard
 
-## Git Workflow
+## Cloudflare services in use
+- Workers: forge-crm-api
+- Pages: forge-crm-dashboard
+- D1: forge-crm (production database)
+- DNS: teamfpco.com zone
+- Note: Cloudflare Zero Trust Access was removed — replaced by custom JWT auth
 
+## Secrets (set via Wrangler, never commit)
+- JWT_SECRET: Cloudflare Worker secret
+- WEBHOOK_SECRET: inbound webhook validation
+- MAKE_WEBHOOK_NEW_CONTACT: placeholder, needs real Make.com URL
+- MAKE_WEBHOOK_STAGE_CHANGE: placeholder, needs real Make.com URL
+- RESEND_API_KEY: live key, verified on teamfpco.com domain
+- VITE_API_TOKEN: set in Cloudflare Pages environment variables + GitHub secrets
+
+## Database
+- D1 SQLite, 3 tables: contacts, interactions, bookings
+- Schema: api/src/db/schema.sql
+- Production DB initialized and live
+- Local dev: npm run db:init:local in api/
+
+## What is built and working
+- Full CRM API with contacts, interactions, bookings endpoints
+- JWT auth on all API routes (custom 30-day session), dev bypass for local dev
+- Service account auth (scope: contacts:write, key prefix fpco_) for external intake
+- Dashboard with 4 pages: Dashboard home, Contacts, Pipeline, Bookings
+- Dashboard home: KPI cards, pipeline summary, recent activity feed
+- Contacts: sortable table, search, filter by sub-brand and stage
+- Contact detail: slide-in panel, inline edit, interaction log
+- Pipeline: kanban board by stage
+- Bookings: table view
+- Add Contact modal with full form
+- Web Leads dashboard view
+- Make.com outbound webhook triggers on new contact and stage change (wired,
+  but Make.com scenarios not yet created)
+- Responsive layout (desktop, tablet, mobile)
+- GitHub Actions auto-deploy pipeline
+- Resend auto-reply email on contact form submission
+- /form-submissions endpoint (replaces Formspree on teamfpco.com)
+- Contact form on teamfpco.com updated to POST to CRM API
+
+## Contact form & lead intake
+- Website contact form POSTs to https://api.teamfpco.com/form-submissions
+- Formspree has been fully replaced
+- Auto-reply sent via Resend on submission
+- Submissions appear in Web Leads dashboard view
+
+## Booking strategy
+- Discovery call booking link is NOT public on the website
+- Booking link is sent privately via Resend auto-reply after contact form submission
+- Rationale: qualifies leads before calendar access, fits high-touch positioning
+  of Forge Intelligence, avoids noise while brand is building
+- book.teamfpco.com is the planned booking subdomain (not yet built)
+- Next task: add booking link to Resend auto-reply email template
+
+## What still needs to be built
+1. Add booking link to Resend auto-reply email (first priority next session)
+2. Wire Make.com scenarios — create actual scenarios for new contact and stage
+   change webhooks, update MAKE_WEBHOOK_NEW_CONTACT and
+   MAKE_WEBHOOK_STAGE_CHANGE secrets with real URLs
+3. Build book.teamfpco.com — booking page in same brand system
+4. Consider Microsoft OAuth for dashboard auth long term
+5. React Native mobile app for CRM (planned — see Mobile App section below)
+
+## Mobile App (planned)
+- Stack: Expo + React Native (iOS + Android from single codebase)
+- Auth: connects to existing JWT system at api.teamfpco.com
+- Goal: native contacts view, lead management, push notifications for
+  new form submissions
+- IDE: Google Antigravity (agent-first IDE) + Claude Code extension
+- Start in Antigravity Playground before touching production CRM repo
+
+## Dev environment
+- Primary IDE: Google Antigravity (agent-first, VS Code fork)
+  - Claude Code extension installed inside Antigravity
+  - Workflow: Antigravity/Gemini for planning → Claude Code for implementation
+  - Use Review-driven development mode (agent asks before acting)
+- Claude Code picks up this CLAUDE.md automatically on session start
+
+## Dev commands
+- API dev server: `cd api && npm run dev`
+- Dashboard dev server: `cd dashboard && npm run dev`
+- DB init local: `cd api && npm run db:init:local`
+- Type check API: `cd api && npx tsc --noEmit`
+- Deploy: push to main — GitHub Actions auto-deploys both API and dashboard
+
+## Git workflow
 ```bash
 git add <file>
 git commit -m "brief description"
 git push
 ```
 
-## Brand Architecture
-
-Forge Performance Co. is the parent umbrella brand. Each sub-brand has its own identity but draws authority from the Forge name.
-
-```
-FORGE PERFORMANCE CO.
-├── SoulFuel              — Integrative Health Coaching
-├── Forge Intelligence    — AI Ethics & Literacy Consulting
-└── Forged Forward        — Podcast (Spotify & YouTube)
-```
-
-## Founder
-**Jordan** — Marine Corps Veteran · Certified Integrative Health Coach · Technologist · Systems Thinker
-Contact: jordan@teamfpco.com | NW Arkansas · Remote Worldwide | Mon–Fri · 06:00–18:00 CST
-
-### Award
-**Advancing AI (Innovate) Award — Tyson Foods · 2026**
-Selected by peers and leadership across Tyson Foods (Fortune 100) for meaningfully driving AI adoption across the organization. Recognizes individuals who guided teams through adoption, built scalable usage frameworks, and helped move organizations from AI curiosity to AI capability.
-- This is Jordan's personal credential — not a Forge Intelligence client relationship
-- Referenced in: founder credential grid (Meet the Founder section) and #overlay-intelligence recognition block
-- Never imply Tyson Foods was a Forge Intelligence client
-
-## Brand Voice & Tone
-
-Direct, confident, grounded in lived experience. Motivational without being hollow. Identity-focused. Never hype.
-
-**Signature lines:**
-- "Strength is not found. It is forged."
-- "You don't need perfection — you need alignment."
-- "Discipline is the most underrated form of self-respect."
-
-| Context | Tone |
-|---------|------|
-| Website / Sales Pages | Confident, premium, invitation-based |
-| Social Media | Personal, grounded, direct — founder voice |
-| Podcast | Warm, conversational — trusted mentor |
-| AI / B2B Consulting | Expert, authoritative, precise |
-
-## Visual Identity
-
-### Color Palette
-- `--black: #080808` / Forge Black `#0F0F0F` — primary background
-- `--steel: #1a1a1c` / Steel Gray `#2B2B2E` — section backgrounds, cards
-- `--pearl: #f0ede8` — primary text
-- `--copper: #b46e3d` — primary accent, CTAs ⭐
-- `--ember: #d4895a` — warm highlight, Forged Forward accent
-- `--silver: #9ca3af` / Metallic Silver `#C9CED6` — Forge Intelligence accent
-- Forged Bronze `#6A4F33`
-
-Always use CSS variables — never hardcode color values.
-
-### Typography
-- **Primary:** Montserrat Bold/900 — headers, logo, CTAs
-- **Secondary:** Inter Regular/300 — body copy, UI text
-- **Accent:** Playfair Display Italic — SoulFuel sub-brand ONLY
-
-| Element | Font | Size | Weight |
-|---------|------|------|--------|
-| Hero Headline | Montserrat | clamp(48px, 7.5vw, 108px) | 900 |
-| Section Header | Montserrat | clamp(48px, 6.5vw, 88px) | 900 |
-| Sub-Header | Montserrat | clamp(28px, 3vw, 40px) | 900 |
-| Body Copy | Inter | 15–17px | 300 |
-| Caption/Label | Inter | 9–13px | 700 |
-
-Font sizes use `clamp()` for fluid scaling — never fixed px for headlines.
-
-### Logo
-Hexagon + Copper Flame
-- `assets/images/alt_primary_logo_transparent.png` — primary (nav, footer, overlays) ✅
-- `assets/images/primary_logo_transparent.png` — alternate
-
-## Sub-Brand Identities
-
-### SoulFuel — Integrative Health Coaching
-- **Tagline:** "Align your habits with your identity."
-- **Accent:** Aged Copper `#B46E3D` / Ember Glow `#D4895A`
-- **Programs:** Foundation (8wk/8 sessions) · Signature (16wk/12 sessions, Most Popular) · Mastery (24wk/16 sessions)
-- Pricing discussed on discovery call only — **never displayed on site**
-
-### Forge Intelligence — AI Ethics & Literacy Consulting
-- **Tagline:** "AI literacy for the human performance professional."
-- **Accent:** Metallic Silver `#C9CED6` anchored with Copper `#B46E3D`
-- **Services:** Session · Workshop · Ethics Badge/Micro-Credential · Institutional Retainer
-- "Inquire Now" CTA scrolls to #contact — not a booking link (different audience)
-
-### Forged Forward — Podcast
-- **Tagline:** "Real conversations. Real growth."
-- **Accent:** Ember Glow `#D4895A`
-- **Platforms:** Spotify · YouTube
-- Topics: Identity & Becoming, Performance & Energy, Veteran Mindset, Habits & Alignment, AI & The Future, Discipline & Freedom
-
-## Site Structure (Single Page)
-
-1. **Hero** — "Strength / Is Not Found. / It Is Forged." — 100svh, content bottom-anchored
-2. **Mission** — `#mission` — "You Don't Need Perfection. You Need Alignment."
-3. **Ecosystem** — `#ecosystem` — Three cards: SoulFuel / Forge Intelligence / Forged Forward
-4. **Founder** — `#founder` — Split layout, headshot left, content right
-5. **Contact** — `#contact` — Formspree form + info panel
-6. **Footer**
-
-### Overlays (slide up from bottom, Escape closes)
-- `#aboutOverlay` — Mission, Vision, North Star Method
-- `#overlay-soulfuel` — IHC explainer, Programs, Discovery Call CTA
-- `#overlay-intelligence` — Services, Inquiry CTA
-- `#overlay-podcast` — About the show, Topics, Guest pitch form
-- `#overlay-privacy` / `#overlay-terms`
-
-## Key Integrations
-- **Contact form** → Formspree `https://formspree.io/f/mnjgqrnb` → jordan@teamfpco.com
-- **Discovery Call / Apply** → MS Bookings `https://outlook.office.com/book/ForgePerformanceCo@teamfpco.com/s/KTdW_Kn33E-D4ct4IgryLw2`
-- **Inquire Now** (Forge Intelligence) → scrolls to `#contact`
-- **Spotify** → https://open.spotify.com/show/5ft7GNkKRGCrXb3bovPTbC
-- **YouTube** → https://www.youtube.com/@forgedforwardpodcast
-
-## Social Links
-- Instagram: https://www.instagram.com/forgeperformance.co/
-- LinkedIn: https://www.linkedin.com/company/forgeperformanceco
-- YouTube: https://www.youtube.com/@forgedforwardpodcast
-- Spotify: https://open.spotify.com/show/5ft7GNkKRGCrXb3bovPTbC
-
-## Tech Stack
-- **Hosting:** GitHub Pages
-- **Domain:** teamfpco.com (Cloudflare DNS)
-- **Forms:** Formspree (free tier)
-- **Booking:** Microsoft Bookings (M365)
-- **Email:** jordan@teamfpco.com (M365)
-- **Payments:** Stripe (configured, post-discovery-call only)
-
-## Design Rules — Never Break These
-- All changes must feel **premium** — no generic patterns, no stock UI
-- Buttons: `btn-fill` (copper bg) for primary CTAs, `btn-outline` for secondary
-- Overlays slide up from bottom — maintain this pattern for any new overlays
-- **Headings max 2 lines** — tighten copy before increasing font size
-- Custom cursor (`.c-dot` / `.c-ring`) hidden on screens ≤1024px — keep it this way
-- **No pricing displayed anywhere** — investment discussed on discovery call only
-- **Never use "NBHWC" or "board-certified"** — always "Certified Integrative Health Coach"
-- Overlay close buttons: bordered, labeled "Close ✕", copper hover
-- Scroll-to-top button: fixed bottom-right, appears after 400px scroll
-
-## Responsive Breakpoints
-- **1100px** — tablet: grids collapse, eco cards go 2-column
-- **768px** — mobile: hamburger nav, single column, full-width buttons
-- **480px** — small mobile: everything tightens, topics go single column
-
-## Assets
-```
-assets/
-└── images/
-    ├── alt_primary_logo_transparent.png  — primary Forge logo (nav, footer, overlays) ✅
-    ├── primary_logo_transparent.png      — alternate Forge logo
-    ├── founder-headshot.jpeg             — PENDING upload
-    └── logo-forgedforward.png            — Forged Forward podcast logo (pending placement)
-```
-
-## North Star Method
-The ideological backbone of all Forge content. Five principles:
-1. **Direction Before Intensity** — Clarity precedes volume.
-2. **Identity Anchors Behavior** — Sustainable performance emerges from who you are.
-3. **Alignment Over Optimization** — More is not better. Better is better.
-4. **Structure Creates Freedom** — Systems create capacity, not constraint.
-5. **Human First, Performance Always** — Performance is earned through respect for the human system.
-
-## Pricing (Internal — Never Display on Site)
-Pricing is a brand signal. These numbers exist so Claude understands premium positioning only.
-
-| Offering | Investment |
-|----------|------------|
-| SoulFuel Foundation | $1,400 |
-| SoulFuel Signature | $2,400 |
-| SoulFuel Mastery | $3,500 |
-| AI Ethics Session | $1,500–$2,500 |
-| AI Workshop + Digital Companion | $3,000–$4,500 |
-| AI Ethics Badge / Micro-Credential | $500–$1,500/cohort · $97–$197/participant |
-| AI Institutional Retainer | $2,000–$5,000/month |
-
-Payment plans available on all SoulFuel programs.
-
-## Pending Items
-- [ ] Founder headshot → upload to `assets/images/founder-headshot.jpg`
-- [ ] SoulFuel logo → pending redesign
-- [ ] Forge Intelligence logo → not yet created
-- [ ] Stripe payment links → post-discovery-call
-- [ ] Google Analytics → add once traffic grows
-- [ ] Email follow-up sequence → post-booking automation (M365)
-- [ ] Update Beacons.ai / all social bios → point to teamfpco.com
+## Rules
+- Parameterized SQL only — never concatenate user input into queries
+- All secrets via Wrangler env vars or GitHub secrets — never hardcode
+- Always rebuild dashboard from GitHub push — never manual wrangler deploy
+- Match brand exactly — no default blue buttons, no white backgrounds
+- Keep bundle small — no heavy UI libraries
+- Never expose booking link publicly on the website — email-gate only
+EOF
+git add CLAUDE.md
+git commit -m "update CLAUDE.md with CRM completion, auth system, booking strategy, Antigravity setup"
+git push
