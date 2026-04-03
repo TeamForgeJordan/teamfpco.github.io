@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoulFuel — Integrative Health Coaching</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forge-black: #0F0F0F;
+      --aged-copper: #B46E3D;
+      --iron-pearl: #F4F4F4;
+      --muted: #6B6B6B;
+      --card-bg: #ffffff;
+      --border: #E5E5E5;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--iron-pearl);
+      color: var(--forge-black);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .logo .soul { color: var(--aged-copper); }
+    .logo .fuel { color: var(--forge-black); }
+
+    .nav-tagline {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-align: right;
+      line-height: 1.3;
+      max-width: 160px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 52px 0;
+    }
+
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: #ffffff;
+      text-align: center;
+      padding: 48px 0 52px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--iron-pearl);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--forge-black);
+      margin-bottom: 24px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--aged-copper);
+      flex-shrink: 0;
+    }
+
+    .hero h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .highlight {
+      font-style: italic;
+      color: var(--aged-copper);
+    }
+
+    .hero-subhead {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    /* ── PROOF CHIPS ── */
+    .proof-chips {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .chip {
+      background: var(--iron-pearl);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: left;
+    }
+
+    .chip-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      line-height: 1.3;
+      color: var(--forge-black);
+      margin-bottom: 4px;
+    }
+
+    .chip-sub {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: left;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .form-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .form-card-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--forge-black);
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--aged-copper);
+    }
+
+    .form-group input::placeholder {
+      color: #aaa;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: var(--forge-black);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover { background: #222; }
+    .btn-primary:active { transform: scale(0.99); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .form-micro {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .form-error {
+      font-size: 0.78rem;
+      color: #cc2200;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+
+    .form-success .success-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .form-success p {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    /* ── PAS SECTION ── */
+    .pas {
+      background: var(--iron-pearl);
+    }
+
+    .pas-block {
+      margin-bottom: 28px;
+    }
+
+    .pas-block:last-child { margin-bottom: 0; }
+
+    .pas-label {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--aged-copper);
+      margin-bottom: 8px;
+    }
+
+    .pas-text {
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* ── FOUNDER STORY ── */
+    .founder {
+      background: #ffffff;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .photo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .photo-label {
+      display: inline-block;
+      background: var(--aged-copper);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+    }
+
+    .founder-caption {
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--aged-copper);
+      margin-bottom: 20px;
+    }
+
+    blockquote {
+      border-left: 2px solid var(--aged-copper);
+      padding: 4px 0 4px 20px;
+      margin: 0;
+    }
+
+    blockquote p {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    blockquote cite {
+      font-style: normal;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--muted);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      background: var(--iron-pearl);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--aged-copper);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body {}
+
+    .step-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: #ffffff;
+    }
+
+    .testimonial-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tcard {
+      background: var(--iron-pearl);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .tcard-quote {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #333;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .tcard-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--aged-copper);
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--forge-black);
+    }
+
+    .author-context {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── SECOND FORM ── */
+    .second-form {
+      background: var(--iron-pearl);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="wrapper">
+      <a href="#" class="logo">
+        <span class="soul">Soul</span><span class="fuel">Fuel</span>
+      </a>
+      <span class="nav-tagline">Certified Integrative<br>Health Coach</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrapper">
+      <div class="badge-pill">
+        <span class="badge-dot"></span>
+        1:1 Health Coaching
+      </div>
+
+      <h1>
+        Stop restarting the same cycles —
+        <span class="highlight">and finally build something that sticks</span>
+      </h1>
+
+      <p class="hero-subhead">
+        SoulFuel is integrative health coaching built around you. Not a program. Not a plan someone else designed. A real conversation that helps you get clear and move forward.
+      </p>
+
+      <div class="proof-chips">
+        <div class="chip">
+          <div class="chip-title">Certified Integrative Health Coach</div>
+          <div class="chip-sub">Trained in whole-person, evidence-informed methodology</div>
+        </div>
+        <div class="chip">
+          <div class="chip-title">Founders Cohort, 2026</div>
+          <div class="chip-sub">Practical tools I still use when motivation dips</div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-inner" id="form-hero-inner">
+          <div class="form-card-title">Get early access to 1:1 coaching</div>
+          <div class="form-card-sub">Limited spots available. Jordan reaches out personally.</div>
+          <form id="form-hero" novalidate>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="First name" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Email address" required autocomplete="email" />
+            </div>
+            <button type="submit" class="btn-primary">Claim your spot</button>
+            <div class="form-error" id="form-hero-error"></div>
+          </form>
+          <p class="form-micro">No spam. No pressure. Just a conversation.</p>
+        </div>
+        <div class="form-success" id="form-hero-success">
+          <div class="success-logo">
+            <span style="color: var(--aged-copper);">Soul</span><span style="color: var(--forge-black);">Fuel</span>
+          </div>
+          <p>You're on the list. Jordan will be in touch soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- PAS -->
+  <section class="pas">
+    <div class="wrapper">
+      <div class="eyebrow">Why SoulFuel</div>
+
+      <div class="pas-block">
+        <div class="pas-label">The problem</div>
+        <p class="pas-text">You know what you should be doing. But between the noise, the quick fixes, and the pressure to have it all figured out — you're exhausted before you even start.</p>
+      </div>
+
+      <div class="pas-block">
+        <div class="pas-label">What that costs you</div>
+        <p class="pas-text">You keep restarting the same cycles. Motivation spikes, then drops. Nothing sticks — not because you lack discipline, but because no one has helped you build the right foundation.</p>
+      </div>
+
+      <div class="pas-block">
+        <div class="pas-label">What changes</div>
+        <p class="pas-text">SoulFuel isn't more information. It's guided reflection, honest questions, and sustainable tools built around your actual life — not someone else's blueprint.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FOUNDER STORY -->
+  <section class="founder">
+    <div class="wrapper">
+      <div class="eyebrow">Jordan's story</div>
+
+      <div class="photo-grid">
+        <div class="photo-wrap">
+          <img src="../assets/images/soulfuel/jordan_before.jpeg" alt="Jordan — before" />
+          <span class="photo-label">Then</span>
+        </div>
+        <div class="photo-wrap">
+          <img src="../assets/images/soulfuel/jordan_after.jpeg" alt="Jordan — after" />
+          <span class="photo-label">Now</span>
+        </div>
+      </div>
+
+      <p class="founder-caption">I've been where you are</p>
+
+      <blockquote>
+        <p>A few years ago I was given the gift of this kind of coaching. I lost 100 lbs in a year — not through a plan someone handed me, but through learning how to see myself differently. That identity shift changed everything. SoulFuel exists because I know what it feels like to finally have someone help you get out of your own way.</p>
+        <cite>— Jordan, Founder of SoulFuel</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="wrapper">
+      <div class="eyebrow">How it works</div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-body">
+            <div class="step-title">You share where you're stuck.</div>
+            <div class="step-desc">No judgment, no long intake forms. Just a real conversation about where you are right now.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-body">
+            <div class="step-title">We build clarity together.</div>
+            <div class="step-desc">Guided questions help you arrive at your own answers — the kind that stick because they came from you.</div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-body">
+            <div class="step-title">You leave with tools, not homework.</div>
+            <div class="step-desc">Practical, realistic, and built for your actual life — not a generic 30-day reset.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="wrapper">
+      <div class="eyebrow">From the founders cohort</div>
+
+      <div class="testimonial-cards">
+        <div class="tcard">
+          <p class="tcard-quote">"Jordan's coaching style helped me slow down and actually think instead of being talked at. The guided questions made it easier to arrive at my own insights, and I walked away with practical tools I still use when motivation dips."</p>
+          <div class="tcard-author">
+            <div class="avatar">FC</div>
+            <div>
+              <div class="author-name">Founders Cohort Member</div>
+              <div class="author-context">SoulFuel, 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tcard">
+          <p class="tcard-quote">"What stood out to me was how Jordan framed coaching as a complement to therapy — not a replacement. It felt supportive, grounded, and focused on building awareness and sustainable change without pressure."</p>
+          <div class="tcard-author">
+            <div class="avatar">FC</div>
+            <div>
+              <div class="author-name">Founders Cohort Member</div>
+              <div class="author-context">SoulFuel, 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SECOND FORM -->
+  <section class="second-form">
+    <div class="wrapper">
+      <div class="form-card">
+        <div class="form-inner" id="form-bottom-inner">
+          <div class="form-card-title">Ready to get clear?</div>
+          <div class="form-card-sub">Drop your info and Jordan will reach out personally.</div>
+          <form id="form-bottom" novalidate>
+            <div class="form-group">
+              <input type="text" name="name" placeholder="First name" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" placeholder="Email address" required autocomplete="email" />
+            </div>
+            <button type="submit" class="btn-primary">Claim your spot</button>
+            <div class="form-error" id="form-bottom-error"></div>
+          </form>
+          <p class="form-micro">No spam. No pressure. Just a conversation.</p>
+        </div>
+        <div class="form-success" id="form-bottom-success">
+          <div class="success-logo">
+            <span style="color: var(--aged-copper);">Soul</span><span style="color: var(--forge-black);">Fuel</span>
+          </div>
+          <p>You're on the list. Jordan will be in touch soon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrapper">
+      <p>SoulFuel — part of the Forge Performance Co. ecosystem</p>
+    </div>
+  </footer>
+
+  <script>
+    async function handleSubmit(formEl, errorEl, innerEl, successEl) {
+      const nameInput = formEl.querySelector('input[name="name"]');
+      const emailInput = formEl.querySelector('input[name="email"]');
+      const btn = formEl.querySelector('button[type="submit"]');
+
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+
+      if (!name || !email) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('https://api.teamfpco.com/form-submissions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer YOUR_FPCO_TOKEN'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            source: 'soulfuel-landing'
+          })
+        });
+
+        if (!res.ok) {
+          throw new Error(`Server error (${res.status})`);
+        }
+
+        innerEl.style.display = 'none';
+        successEl.style.display = 'block';
+      } catch (err) {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Claim your spot';
+      }
+    }
+
+    document.getElementById('form-hero').addEventListener('submit', function (e) {
+      e.preventDefault();
+      handleSubmit(
+        this,
+        document.getElementById('form-hero-error'),
+        document.getElementById('form-hero-inner'),
+        document.getElementById('form-hero-success')
+      );
+    });
+
+    document.getElementById('form-bottom').addEventListener('submit', function (e) {
+      e.preventDefault();
+      handleSubmit(
+        this,
+        document.getElementById('form-bottom-error'),
+        document.getElementById('form-bottom-inner'),
+        document.getElementById('form-bottom-success')
+      );
+    });
+  </script>
+
+</body>
+</html>
