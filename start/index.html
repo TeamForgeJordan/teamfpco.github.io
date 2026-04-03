@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SoulFuel — Integrative Health Coaching</title>
+  <title>SoulFuel — Integrative Health Coaching with Jordan</title>
+  <meta name="description" content="Stop restarting the same cycles. SoulFuel is 1:1 integrative health coaching built around you. Limited spots available.">
+  <meta property="og:title" content="SoulFuel — Integrative Health Coaching with Jordan">
+  <meta property="og:description" content="Stop restarting the same cycles. SoulFuel is 1:1 integrative health coaching built around you. Limited spots available.">
+  <meta property="og:image" content="https://teamfpco.com/assets/images/soulfuel/jordan_after.jpeg">
+  <meta property="og:url" content="https://teamfpco.com/start/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SoulFuel — Integrative Health Coaching with Jordan">
+  <meta name="twitter:description" content="Stop restarting the same cycles. SoulFuel is 1:1 integrative health coaching built around you.">
+  <meta name="twitter:image" content="https://teamfpco.com/assets/images/soulfuel/jordan_after.jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -482,6 +492,68 @@
       background: var(--iron-pearl);
     }
 
+    /* ── STICKY MOBILE CTA ── */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--forge-black);
+      padding: 14px 20px;
+      z-index: 200;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid #2a2a2a;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sticky-cta.visible {
+      transform: translateY(0);
+    }
+
+    .sticky-cta-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--iron-pearl);
+    }
+
+    .sticky-cta-text span {
+      color: var(--aged-copper);
+    }
+
+    .sticky-cta-btn {
+      flex-shrink: 0;
+      background: var(--aged-copper);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .sticky-cta-btn:hover { background: #9d5e32; }
+
+    @media (min-width: 768px) {
+      .sticky-cta { display: none !important; }
+    }
+
+    /* ── FIELD ERRORS ── */
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--aged-copper);
+      margin-top: 5px;
+      display: none;
+    }
+
     /* ── DESKTOP RESPONSIVE ── */
     @media (min-width: 768px) {
       .wrapper {
@@ -622,9 +694,11 @@
           <form id="form-hero" novalidate>
             <div class="form-group">
               <input type="text" name="name" placeholder="First name" required autocomplete="given-name" />
+              <div class="field-error" id="form-hero-name-error">Please enter your name</div>
             </div>
             <div class="form-group">
               <input type="email" name="email" placeholder="Email address" required autocomplete="email" />
+              <div class="field-error" id="form-hero-email-error">Double check that email address</div>
             </div>
             <button type="submit" class="btn-primary">Claim your spot</button>
             <div class="form-error" id="form-hero-error"></div>
@@ -772,9 +846,11 @@
           <form id="form-bottom" novalidate>
             <div class="form-group">
               <input type="text" name="name" placeholder="First name" required autocomplete="given-name" />
+              <div class="field-error" id="form-bottom-name-error">Please enter your name</div>
             </div>
             <div class="form-group">
               <input type="email" name="email" placeholder="Email address" required autocomplete="email" />
+              <div class="field-error" id="form-bottom-email-error">Double check that email address</div>
             </div>
             <button type="submit" class="btn-primary">Claim your spot</button>
             <div class="form-error" id="form-bottom-error"></div>
@@ -791,6 +867,12 @@
     </div>
   </section>
 
+  <!-- STICKY MOBILE CTA -->
+  <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
+    <span class="sticky-cta-text">Ready to get <span>clear?</span></span>
+    <button class="sticky-cta-btn" id="sticky-cta-btn">Claim your spot →</button>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="wrapper">
@@ -799,28 +881,41 @@
   </footer>
 
   <script>
-    async function handleSubmit(formEl, errorEl, innerEl, successEl) {
+    // ── FORM HANDLING ──
+    function validateForm(formEl, prefix) {
+      const nameInput = formEl.querySelector('input[name="name"]');
+      const emailInput = formEl.querySelector('input[name="email"]');
+      const nameError = document.getElementById(prefix + '-name-error');
+      const emailError = document.getElementById(prefix + '-email-error');
+
+      let valid = true;
+
+      nameError.style.display = 'none';
+      emailError.style.display = 'none';
+
+      if (!nameInput.value.trim()) {
+        nameError.style.display = 'block';
+        valid = false;
+      }
+
+      const emailVal = emailInput.value.trim();
+      if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        emailError.style.display = 'block';
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    async function handleSubmit(formEl, prefix, errorEl, innerEl, successEl) {
+      if (!validateForm(formEl, prefix)) return;
+
       const nameInput = formEl.querySelector('input[name="name"]');
       const emailInput = formEl.querySelector('input[name="email"]');
       const btn = formEl.querySelector('button[type="submit"]');
 
       errorEl.style.display = 'none';
       errorEl.textContent = '';
-
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-
-      if (!name || !email) {
-        errorEl.textContent = 'Please fill in all fields.';
-        errorEl.style.display = 'block';
-        return;
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        errorEl.textContent = 'Please enter a valid email address.';
-        errorEl.style.display = 'block';
-        return;
-      }
 
       btn.disabled = true;
       btn.textContent = 'Sending…';
@@ -833,20 +928,18 @@
             'Authorization': 'Bearer YOUR_FPCO_TOKEN'
           },
           body: JSON.stringify({
-            name,
-            email,
+            name: nameInput.value.trim(),
+            email: emailInput.value.trim(),
             source: 'soulfuel-landing'
           })
         });
 
-        if (!res.ok) {
-          throw new Error(`Server error (${res.status})`);
-        }
+        if (!res.ok) throw new Error('server');
 
         innerEl.style.display = 'none';
         successEl.style.display = 'block';
       } catch (err) {
-        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.textContent = 'Something went wrong — try again.';
         errorEl.style.display = 'block';
         btn.disabled = false;
         btn.textContent = 'Claim your spot';
@@ -855,23 +948,52 @@
 
     document.getElementById('form-hero').addEventListener('submit', function (e) {
       e.preventDefault();
-      handleSubmit(
-        this,
+      handleSubmit(this, 'form-hero',
         document.getElementById('form-hero-error'),
         document.getElementById('form-hero-inner'),
-        document.getElementById('form-hero-success')
-      );
+        document.getElementById('form-hero-success'));
     });
 
     document.getElementById('form-bottom').addEventListener('submit', function (e) {
       e.preventDefault();
-      handleSubmit(
-        this,
+      handleSubmit(this, 'form-bottom',
         document.getElementById('form-bottom-error'),
         document.getElementById('form-bottom-inner'),
-        document.getElementById('form-bottom-success')
-      );
+        document.getElementById('form-bottom-success'));
     });
+
+    // ── STICKY MOBILE CTA ──
+    const stickyCta = document.getElementById('sticky-cta');
+    const bottomForm = document.getElementById('form-bottom-inner');
+
+    if (window.innerWidth < 768) {
+      stickyCta.style.display = 'flex';
+
+      document.getElementById('sticky-cta-btn').addEventListener('click', function () {
+        document.querySelector('#form-bottom input[name="name"]').focus({ preventScroll: true });
+        bottomForm.closest('.form-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+
+      let ticking = false;
+      window.addEventListener('scroll', function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          const scrollY = window.scrollY;
+          const formRect = bottomForm.closest('section').getBoundingClientRect();
+          const nearBottom = formRect.top < window.innerHeight + 300;
+
+          if (scrollY > 600 && !nearBottom) {
+            stickyCta.classList.add('visible');
+            stickyCta.setAttribute('aria-hidden', 'false');
+          } else {
+            stickyCta.classList.remove('visible');
+            stickyCta.setAttribute('aria-hidden', 'true');
+          }
+          ticking = false;
+        });
+      }, { passive: true });
+    }
   </script>
 
 </body>
