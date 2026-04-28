@@ -1019,6 +1019,11 @@ section { padding: 130px 48px; }
   color: var(--white); line-height: 1.05; max-width: 560px;
 }
 .svc-cta-quote em { color: var(--copper); font-style: normal; }
+.fi-testimonials { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 40px; }
+.fi-tcard { background: var(--steel); padding: 40px; }
+.fi-tcard-mark { font-size: 40px; line-height: 1; color: var(--copper); font-family: var(--f-head); font-weight: 900; margin-bottom: 20px; }
+.fi-tcard-quote { font-family: var(--f-body); font-size: var(--text-base); font-weight: 300; line-height: 1.85; color: rgba(240,237,232,.82); margin-bottom: 28px; font-style: italic; }
+.fi-tcard-attr { font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: var(--copper); }
 @media (max-width: 900px) {
   .svc-nav { padding: 0 24px; }
   .svc-content { padding: 0 24px 80px; }
@@ -1029,6 +1034,7 @@ section { padding: 130px 48px; }
   .svc-guest-form { grid-template-columns: 1fr; }
   .svc-guest-form .span2 { grid-column: 1; }
   .svc-cta-bar { flex-direction: column; align-items: flex-start; }
+  .fi-testimonials { grid-template-columns: 1fr; }
 }
 .sf-discovery {
   background: rgba(180,110,61,.07);
@@ -2412,6 +2418,23 @@ footer {
       <h3 class="svc-section-title">Built for <em>Practitioners.</em></h3>
       <p class="svc-body">Health coaches, personal trainers, physical therapists, nutritionists, wellness directors, athletic departments, performance organizations, and healthcare institutions navigating the intersection of AI and human performance.</p>
       <p class="svc-body">If you're responsible for people's health outcomes and AI is entering your workflow — this advisory is for you.</p>
+    </div>
+
+    <div class="svc-section">
+      <div class="svc-section-kicker">From the Field</div>
+      <h3 class="svc-section-title">What <em>Practitioners</em> Say.</h3>
+      <div class="fi-testimonials">
+        <div class="fi-tcard">
+          <div class="fi-tcard-mark">"</div>
+          <p class="fi-tcard-quote">We certainly need people like you as AI continues to gain traction — people who are passionate about elevating others and protecting them along the way.</p>
+          <div class="fi-tcard-attr">NBC-HWC &middot; Graduate Cohort</div>
+        </div>
+        <div class="fi-tcard">
+          <div class="fi-tcard-mark">"</div>
+          <p class="fi-tcard-quote">Thoughtful and comprehensive while still keeping it high level and easy enough to understand for those of us who are less AI literate.</p>
+          <div class="fi-tcard-attr">NBC-HWC &middot; Graduate Cohort</div>
+        </div>
+      </div>
     </div>
 
     <div class="svc-cta-bar">
