@@ -9,7 +9,7 @@
 ═══════════════════════════════════════════ -->
 <title>Forge Performance Co. — Strength Is Not Found. It Is Forged.</title>
 <meta name="description" content="Forge Performance Co. is a premium performance ecosystem — integrative health coaching, ethical AI advisory, and identity-driven systems — for those ready to become. Veteran-led. Certified Integrative Health Coach. Serving NW Arkansas and remote clients worldwide."/>
-<meta name="keywords" content="integrative health coaching, Certified Integrative Health Coach coach, AI ethics consulting, human performance, identity coaching, veteran coach, SoulFuel coaching, Forge Intelligence, Forged Forward podcast, NW Arkansas health coach, performance ecosystem"/>
+<meta name="keywords" content="integrative health coaching, Certified Integrative Health Coach, AI ethics consulting, human performance, identity coaching, veteran coach, SoulFuel coaching, Forge Intelligence, Forged Forward podcast, NW Arkansas health coach, performance ecosystem"/>
 <meta name="author" content="Forge Performance Co."/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <link rel="canonical" href="https://teamfpco.com/"/>
@@ -53,8 +53,8 @@
       "founder": {
         "@type": "Person",
         "name": "Forge Performance Co. Founder",
-        "jobTitle": "Certified Integrative Health Coach Health & Wellness Coach",
-        "description": "Marine Corps veteran, technologist, and Certified Integrative Health Coach integrative health coach.",
+        "jobTitle": "Certified Integrative Health Coach",
+        "description": "Marine Corps veteran, technologist, and Certified Integrative Health Coach.",
         "knowsAbout": ["integrative health coaching", "AI ethics", "human performance", "identity-based behavior change", "military systems thinking"]
       },
       "areaServed": [
@@ -88,7 +88,7 @@
       "@id": "https://teamfpco.com/#service-soulfuel",
       "name": "SoulFuel — Integrative Health Coaching",
       "provider": { "@id": "https://teamfpco.com/#organization" },
-      "description": "Certified Integrative Health Coach integrative health coaching focused on identity-level transformation, habit alignment, and sustainable performance.",
+      "description": "Board-certified integrative health coaching focused on identity-level transformation, habit alignment, and sustainable performance.",
       "serviceType": "Health & Wellness Coaching",
       "offers": [
         {
@@ -138,7 +138,7 @@
           "name": "What is Forge Performance Co.?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Forge Performance Co. is a premium performance ecosystem offering integrative health coaching (SoulFuel), AI ethics advisory (Forge Intelligence), and the Forged Forward podcast. It is veteran-led and Certified Integrative Health Coach."
+            "text": "Forge Performance Co. is a premium performance ecosystem offering integrative health coaching (SoulFuel), AI ethics advisory (Forge Intelligence), and the Forged Forward podcast. It is veteran-led and led by a Certified Integrative Health Coach."
           }
         },
         {
@@ -146,7 +146,7 @@
           "name": "What is SoulFuel coaching?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "SoulFuel is the integrative health coaching arm of Forge Performance Co. Programs range from 8 to 24 weeks and focus on identity-level transformation, habit alignment, and sustainable performance. All coaching is delivered by an Certified Integrative Health Coach coach."
+            "text": "SoulFuel is the integrative health coaching arm of Forge Performance Co. Programs range from 8 to 24 weeks and focus on identity-level transformation, habit alignment, and sustainable performance. All coaching is delivered by a Certified Integrative Health Coach."
           }
         },
         {
@@ -297,7 +297,7 @@ nav.scrolled {
 }
 .nav-cta::after { display: none !important; }
 .nav-cta:hover { background: var(--ember) !important; transform: translateY(-1px); }
-.hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+.hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; min-width: 44px; min-height: 44px; padding: 8px; background: none; border: none; cursor: pointer; }
 .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--pearl); transition: .3s; }
 
 /* ═══════════════════════════════════════════
@@ -612,7 +612,9 @@ section { padding: 130px 48px; }
   border-bottom: 1px solid rgba(180,110,61,.12);
   padding: 0 48px; height: 72px;
   display: flex; align-items: center; justify-content: space-between;
+  position: sticky;
 }
+.svc-nav { position: sticky; }
 .about-nav-logo { display: flex; align-items: center; gap: 12px; }
 .about-nav-wordmark {
   font-family: var(--f-head); font-weight: 900; font-size: var(--text-sm);
@@ -862,6 +864,113 @@ section { padding: 130px 48px; }
 }
 .eco-btn-outline-s:hover { background: var(--ember); border-color: var(--ember); }
 
+.eco-bestfor {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-top: 20px; padding-top: 20px;
+  border-top: 1px solid rgba(180,110,61,.18);
+}
+.eco-bestfor-label {
+  font-family: var(--f-head); font-size: 10px; font-weight: 700;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--copper);
+  white-space: nowrap; padding-top: 2px; flex-shrink: 0;
+}
+.eco-bestfor-text {
+  font-family: var(--f-body); font-size: var(--text-sm); font-weight: 400;
+  line-height: 1.5; color: rgba(240,237,232,.78);
+}
+
+/* ═══════════════════════════════════════════
+   PROOF STRIP — credibility row
+═══════════════════════════════════════════ */
+.proof-strip {
+  background: var(--forge);
+  border-top: 1px solid rgba(180,110,61,.18);
+  border-bottom: 1px solid rgba(180,110,61,.18);
+  padding: 28px 48px;
+}
+.proof-strip-inner {
+  max-width: 1380px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  align-items: center;
+}
+.proof-item {
+  display: flex; align-items: center; gap: 14px;
+}
+.proof-item-mark {
+  width: 6px; height: 6px; background: var(--copper);
+  flex-shrink: 0;
+}
+.proof-item-text {
+  font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--pearl); line-height: 1.35;
+}
+
+/* ═══════════════════════════════════════════
+   CHOOSE YOUR PATH
+═══════════════════════════════════════════ */
+#path {
+  background: var(--forge);
+  padding: 130px 48px;
+  position: relative; overflow: hidden;
+}
+.path-inner { max-width: 1380px; margin: 0 auto; }
+.path-head { margin-bottom: 64px; max-width: 760px; }
+.path-headline {
+  font-family: var(--f-head); font-weight: 900;
+  font-size: clamp(40px, 5.4vw, 72px);
+  line-height: .97; letter-spacing: -.03em; text-transform: uppercase;
+  color: var(--white); margin-top: 18px;
+}
+.path-headline em { color: var(--copper); font-style: normal; }
+.path-intro {
+  font-family: var(--f-body); font-size: var(--text-lg); font-weight: 300;
+  line-height: 1.8; color: rgba(240,237,232,.72);
+  margin-top: 24px; max-width: 640px;
+}
+.path-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+}
+.path-card {
+  background: var(--steel);
+  padding: 48px 40px;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: background .35s var(--ease), transform .35s var(--ease);
+  border-top: 2px solid var(--copper);
+}
+.path-card:hover { background: #1e1e20; transform: translateY(-3px); }
+.path-card-label {
+  font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700;
+  letter-spacing: .32em; text-transform: uppercase; color: var(--copper);
+  margin-bottom: 24px;
+}
+.path-card-title {
+  font-family: var(--f-head); font-weight: 900;
+  font-size: clamp(24px, 2.4vw, 32px);
+  line-height: 1.05; letter-spacing: -.02em; text-transform: uppercase;
+  color: var(--white); margin-bottom: 16px;
+}
+.path-card-body {
+  font-family: var(--f-body); font-size: var(--text-base); font-weight: 300;
+  line-height: 1.7; color: rgba(240,237,232,.72);
+  flex: 1; margin-bottom: 32px;
+}
+.path-card-cta {
+  display: inline-flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; padding: 14px 20px;
+  background: transparent; border: 1px solid rgba(240,237,232,.22);
+  font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--pearl);
+  cursor: pointer; text-align: left;
+  transition: background .2s, border-color .2s, color .2s, transform .2s var(--ease);
+}
+.path-card-cta:hover {
+  border-color: var(--copper); color: var(--copper);
+  background: rgba(180,110,61,.06); transform: translateY(-1px);
+}
+.path-card-cta::after { content: '→'; }
+
 /* ═══════════════════════════════════════════
    SERVICE OVERLAYS
 ═══════════════════════════════════════════ */
@@ -895,10 +1004,52 @@ section { padding: 130px 48px; }
   transition: background .2s, border-color .2s, color .2s;
 }
 .svc-close:hover { background: rgba(180,110,61,.12); border-color: var(--copper); color: var(--copper); }
+.svc-close:focus-visible, .about-close:focus-visible {
+  outline: 2px solid var(--copper); outline-offset: 3px;
+}
 .svc-close-x {
   font-size: 16px; line-height: 1; color: inherit;
 }
 .svc-close:hover .svc-close-x { color: var(--copper); }
+.svc-nav-title {
+  font-family: var(--f-head); font-size: var(--text-kicker); font-weight: 700;
+  letter-spacing: .32em; text-transform: uppercase; color: var(--copper);
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.svc-nav { position: sticky; }
+
+/* Mobile sticky CTA (inside service overlays) */
+.svc-mobile-cta {
+  display: none;
+  position: sticky; bottom: 0; left: 0; right: 0;
+  background: rgba(8,8,8,.96);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(180,110,61,.25);
+  padding: 12px 20px;
+  gap: 10px; z-index: 9;
+}
+.svc-mobile-cta .btn {
+  flex: 1; padding: 14px 16px; font-size: 11px;
+  min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .svc-mobile-cta { display: flex; }
+  .svc-nav-title { display: none; }
+}
+
+/* Global focus styles for accessibility */
+.btn:focus-visible, .eco-btn:focus-visible, .path-card-cta:focus-visible,
+.f-pill:focus-visible, .f-submit:focus-visible, .f-submit-again:focus-visible,
+.f-email-fix:focus-visible, .nav-cta:focus-visible {
+  outline: 2px solid var(--copper); outline-offset: 3px;
+}
+.f-input:focus-visible, .f-textarea:focus-visible, .f-select:focus-visible {
+  outline: 2px solid var(--copper); outline-offset: 1px;
+}
 .svc-content { max-width: 1380px; margin: 0 auto; padding: 0 48px 120px; }
 .svc-hero {
   padding: 80px 0 64px;
@@ -1498,7 +1649,17 @@ section { padding: 130px 48px; }
   padding: 10px 18px; cursor: pointer;
   transition: background .2s, color .2s;
 }
-.f-pill.active { background: var(--copper); color: var(--black); }
+.f-pill.active {
+  background: var(--copper); color: var(--black);
+  box-shadow: 0 0 0 1px var(--copper), 0 6px 18px -6px rgba(180,110,61,.6);
+}
+.f-pill.active::before {
+  content: '✓';
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 900;
+  font-size: 11px;
+}
 .f-pill:hover:not(.active) { background: rgba(180,110,61,.12); }
 .f-pill-error {
   font-family: var(--f-body); font-size: var(--text-sm); font-weight: 300;
@@ -1609,6 +1770,10 @@ footer {
   .hero-content { max-width: 100%; }
 
   .mission-teaser { grid-template-columns: 1fr; gap: 48px; }
+  #path { padding: 100px 32px; }
+  .path-cards { grid-template-columns: 1fr; }
+  .proof-strip { padding: 24px 32px; }
+  .proof-strip-inner { grid-template-columns: 1fr 1fr; gap: 20px; }
   .eco-header { padding-bottom: 60px; margin-bottom: 60px; }
   .eco-cards { grid-template-columns: 1fr 1fr; }
   .founder-grid { grid-template-columns: 1fr; }
@@ -1653,6 +1818,15 @@ footer {
 
   .mission-teaser { grid-template-columns: 1fr; gap: 36px; }
   .mission-quote { font-size: clamp(36px, 10vw, 60px); }
+
+  #path { padding: 80px 24px; }
+  .path-cards { grid-template-columns: 1fr; }
+  .path-card { padding: 36px 28px; }
+  .proof-strip { padding: 22px 24px; }
+  .proof-strip-inner { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .proof-item-text { font-size: 10px; letter-spacing: .14em; }
+
+  .eco-bestfor { flex-direction: column; gap: 6px; padding-top: 16px; margin-top: 16px; }
 
   .eco-cards { grid-template-columns: 1fr; }
   .eco-card { padding: 40px 32px; }
@@ -1867,15 +2041,15 @@ footer {
       <li><a href="#contact" class="nav-cta">Let's Forge →</a></li>
     </ul>
 
-    <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobNav">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
 <!-- Mobile Nav -->
-<div class="mob-nav" id="mobNav">
-  <button class="mob-close" id="mobClose">✕</button>
+<div class="mob-nav" id="mobNav" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+  <button class="mob-close" id="mobClose" aria-label="Close menu">✕</button>
   <a href="#mission"    class="mob-link" onclick="closeMob()">The Philosophy</a>
   <a href="#ecosystem"  class="mob-link" onclick="closeMob()">The Ecosystem</a>
   <a href="#founder"    class="mob-link" onclick="closeMob()">Meet the Founder</a>
@@ -1913,6 +2087,26 @@ footer {
 
 
 <!-- Credential Bridge -->
+<section class="proof-strip" aria-label="Credentials">
+  <div class="proof-strip-inner">
+    <div class="proof-item">
+      <span class="proof-item-mark" aria-hidden="true"></span>
+      <span class="proof-item-text">USMC Veteran</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-item-mark" aria-hidden="true"></span>
+      <span class="proof-item-text">Certified Integrative Health Coach</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-item-mark" aria-hidden="true"></span>
+      <span class="proof-item-text">Fortune 100 AI Recognition</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-item-mark" aria-hidden="true"></span>
+      <span class="proof-item-text">Northwest Arkansas · Remote Worldwide</span>
+    </div>
+  </div>
+</section>
 
 <!-- Mission Teaser -->
 <section id="mission">
@@ -1926,6 +2120,39 @@ footer {
     <div class="reveal d2 mission-teaser-right">
       <p class="mission-body">Forge Performance Co. exists to help people live and lead in alignment — building disciplined systems, resilient identities, and human-centered performance that lasts. Without burnout, hype, or shortcuts.</p>
       <button class="btn btn-outline" onclick="openAbout()">Our Mission & Vision →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     CHOOSE YOUR PATH
+════════════════════════════════ -->
+<section id="path" aria-labelledby="path-heading">
+  <div class="path-inner">
+    <div class="path-head reveal">
+      <div class="kicker">Choose Your Path</div>
+      <h2 id="path-heading" class="path-headline">Where Are You<br><em>Forging Next?</em></h2>
+      <p class="path-intro">Forge Performance Co. brings coaching, AI ethics, and honest performance conversations under one roof. Start with the path that fits what you need now.</p>
+    </div>
+    <div class="path-cards">
+      <div class="path-card reveal">
+        <div class="path-card-label">SoulFuel Coaching</div>
+        <h3 class="path-card-title">Build Sustainable Health</h3>
+        <p class="path-card-body">Identity-level integrative health coaching for people ready to align habits, energy, and direction.</p>
+        <button type="button" class="path-card-cta" data-path="soulfuel" onclick="openOverlay('soulfuel')" aria-label="Explore SoulFuel coaching">Explore Coaching</button>
+      </div>
+      <div class="path-card reveal d2">
+        <div class="path-card-label">Forge Intelligence</div>
+        <h3 class="path-card-title">Adopt AI Responsibly</h3>
+        <p class="path-card-body">AI ethics and literacy advisory for health, wellness, and performance professionals.</p>
+        <button type="button" class="path-card-cta" data-path="intelligence" onclick="openOverlay('intelligence')" aria-label="Explore Forge Intelligence advisory">Explore Advisory</button>
+      </div>
+      <div class="path-card reveal d3">
+        <div class="path-card-label">Forged Forward</div>
+        <h3 class="path-card-title">Listen or Join the Conversation</h3>
+        <p class="path-card-body">Real conversations on identity, discipline, performance, and becoming.</p>
+        <button type="button" class="path-card-cta" data-path="podcast" onclick="openOverlay('podcast')" aria-label="Explore Forged Forward podcast">Explore Podcast</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1949,7 +2176,11 @@ footer {
       <div class="eco-sub">Integrative Health Coaching</div>
       <h3 class="eco-name">SoulFuel</h3>
       <p class="eco-tagline">"Align your habits with your identity."</p>
-      <p class="eco-desc">The applied coaching arm of Forge. Certified Integrative Health Coach. Identity-level work — not accountability coaching, not meal plans. This is transformation at the root.</p>
+      <p class="eco-desc">The applied coaching arm of Forge. Board-certified. Identity-level work — not accountability coaching, not meal plans. This is transformation at the root.</p>
+      <div class="eco-bestfor">
+        <span class="eco-bestfor-label">Best For</span>
+        <span class="eco-bestfor-text">Individuals ready for identity-level health and habit transformation.</span>
+      </div>
       <div class="eco-btns">
         <button class="eco-btn eco-btn-outline" onclick="openOverlay('soulfuel')">Learn More</button>
         <button class="eco-btn eco-btn-fill-c" onclick="window.open('https://outlook.office.com/book/ForgePerformanceCo@teamfpco.com/s/KTdW_Kn33E-D4ct4IgryLw2','_blank')">Free Discovery Call</button>
@@ -1962,9 +2193,13 @@ footer {
       <h3 class="eco-name">Forge Intelligence</h3>
       <p class="eco-tagline">"AI literacy for the human performance professional."</p>
       <p class="eco-desc">The only AI ethics advisory built for the health and performance space. Military-grade systems thinking meets board-certified coaching.</p>
+      <div class="eco-bestfor">
+        <span class="eco-bestfor-label">Best For</span>
+        <span class="eco-bestfor-text">Practitioners, teams, and organizations adopting AI in human performance spaces.</span>
+      </div>
       <div class="eco-btns">
         <button class="eco-btn eco-btn-outline" onclick="openOverlay('intelligence')">Learn More</button>
-        <button class="eco-btn eco-btn-outline-s" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Inquire Now</button>
+        <button class="eco-btn eco-btn-outline-s" onclick="prefillInterestAndScroll('Forge Intelligence')">Inquire Now</button>
       </div>
     </div>
     <div class="eco-card reveal d3">
@@ -1974,9 +2209,13 @@ footer {
       <h3 class="eco-name">Forged Forward</h3>
       <p class="eco-tagline">"Real conversations. Real growth."</p>
       <p class="eco-desc">The direct line to the thinking and philosophy behind Forge. Honest, grounded episodes that earn trust through consistency and authenticity.</p>
+      <div class="eco-bestfor">
+        <span class="eco-bestfor-label">Best For</span>
+        <span class="eco-bestfor-text">Listeners and guests drawn to honest conversations about growth, leadership, and discipline.</span>
+      </div>
       <div class="eco-btns">
         <button class="eco-btn eco-btn-outline" onclick="openOverlay('podcast')">Learn More</button>
-        <button class="eco-btn eco-btn-fill-e" onclick="openOverlay('podcast-guest')">Be a Guest →</button>
+        <button class="eco-btn eco-btn-fill-e" onclick="openPodcastGuest()">Be a Guest →</button>
       </div>
     </div>
   </div>
@@ -2078,38 +2317,41 @@ footer {
       </div>
 
       <div class="reveal d2">
-        <div class="contact-form" id="cForm">
+        <form class="contact-form" id="cForm" novalidate onsubmit="event.preventDefault(); handleSubmit();">
           <div class="f-row">
             <div class="f-group">
-              <label class="f-label">First Name</label>
-              <input class="f-input" type="text" placeholder="Jordan" id="fn"/>
+              <label class="f-label" for="fn">First Name</label>
+              <input class="f-input" type="text" placeholder="Jordan" id="fn" name="firstName" autocomplete="given-name" required/>
+              <div class="f-pill-error" id="fn-error" style="display:none" role="alert">Please enter your first name.</div>
             </div>
             <div class="f-group">
-              <label class="f-label">Last Name</label>
-              <input class="f-input" type="text" placeholder="Smith"/>
+              <label class="f-label" for="ln">Last Name</label>
+              <input class="f-input" type="text" placeholder="Smith" id="ln" name="lastName" autocomplete="family-name"/>
             </div>
           </div>
           <div class="f-group">
-            <label class="f-label">Email Address</label>
-            <input class="f-input" type="email" placeholder="you@email.com" id="fe"/>
+            <label class="f-label" for="fe">Email Address</label>
+            <input class="f-input" type="email" placeholder="you@email.com" id="fe" name="email" autocomplete="email" required/>
             <div class="f-email-suggest" id="email-suggest"></div>
+            <div class="f-pill-error" id="fe-error" style="display:none" role="alert">Please enter a valid email address.</div>
           </div>
-          <div class="f-group">
-            <label class="f-label">Area of Interest</label>
+          <div class="f-group" role="group" aria-labelledby="fi-label" aria-describedby="fi-help">
+            <span class="f-label" id="fi-label">Area of Interest</span>
+            <div class="f-pill-help" id="fi-help" style="font-family:var(--f-body);font-size:var(--text-sm);font-weight:300;color:var(--dim);margin-top:-4px;margin-bottom:4px;">Select one or more.</div>
             <div class="f-pills" id="fi-pills">
-              <button type="button" class="f-pill" data-value="Forge Intelligence">Forge Intelligence</button>
-              <button type="button" class="f-pill" data-value="SoulFuel">SoulFuel</button>
-              <button type="button" class="f-pill" data-value="Forged Forward">Forged Forward</button>
-              <button type="button" class="f-pill" data-value="General">General</button>
+              <button type="button" class="f-pill" data-value="Forge Intelligence" aria-pressed="false">Forge Intelligence</button>
+              <button type="button" class="f-pill" data-value="SoulFuel" aria-pressed="false">SoulFuel</button>
+              <button type="button" class="f-pill" data-value="Forged Forward" aria-pressed="false">Forged Forward</button>
+              <button type="button" class="f-pill" data-value="General" aria-pressed="false">General</button>
             </div>
-            <div class="f-pill-error" id="pill-error" style="display:none">Please select at least one area of interest.</div>
+            <div class="f-pill-error" id="pill-error" style="display:none" role="alert">Please select at least one area of interest.</div>
           </div>
           <div class="f-group">
-            <label class="f-label">Your Message</label>
-            <textarea class="f-textarea" placeholder="Tell me where you are and what you're working toward…"></textarea>
+            <label class="f-label" for="fmsg">Your Message</label>
+            <textarea class="f-textarea" id="fmsg" name="message" placeholder="Tell me where you are and what you're working toward…"></textarea>
           </div>
-          <button class="f-submit" onclick="handleSubmit()">Send Message →</button>
-        </div>
+          <button type="submit" class="f-submit">Send Message →</button>
+        </form>
 
         <div class="form-success" id="fSuccess">
           <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." class="form-success-logo"/>
@@ -2174,10 +2416,11 @@ footer {
 <!-- ════════════════════════════════
      ABOUT OVERLAY
 ════════════════════════════════ -->
-<div class="about-overlay" id="aboutOverlay">
+<div class="about-overlay" id="aboutOverlay" role="dialog" aria-modal="true" aria-labelledby="overlay-about-title" aria-hidden="true">
   <div class="about-nav">
     <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." style="height:52px;width:auto;object-fit:contain;"/>
-    <button class="about-close" onclick="closeAbout()">Close <div class="about-close-x">✕</div></button>
+    <div class="svc-nav-title" id="overlay-about-title">Mission &amp; Vision</div>
+    <button class="about-close" onclick="closeAbout()" aria-label="Close overlay">Close <div class="about-close-x" aria-hidden="true">✕</div></button>
   </div>
 
   <div class="about-content">
@@ -2277,16 +2520,17 @@ footer {
 <!-- ════════════════════════════════
      SOULFUEL OVERLAY
 ════════════════════════════════ -->
-<div class="svc-overlay" id="overlay-soulfuel">
+<div class="svc-overlay" id="overlay-soulfuel" role="dialog" aria-modal="true" aria-labelledby="overlay-soulfuel-title" aria-hidden="true">
   <div class="svc-nav">
     <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." style="height:52px;width:auto;object-fit:contain;"/>
-    <button class="svc-close" onclick="closeOverlay('soulfuel')">Close <div class="svc-close-x">✕</div></button>
+    <div class="svc-nav-title" id="overlay-soulfuel-title">SoulFuel</div>
+    <button class="svc-close" onclick="closeOverlay('soulfuel')" aria-label="Close overlay">Close <div class="svc-close-x" aria-hidden="true">✕</div></button>
   </div>
   <div class="svc-content">
     <div class="svc-hero">
       <div class="svc-hero-title" style="color:var(--copper)">Soul<span style="color:var(--white)">Fuel</span></div>
       <div class="svc-hero-right">
-        <p class="svc-hero-sub">Certified Integrative Health Coach integrative health coaching that works at the identity level — not the symptom level. We don't chase habits. We build the person who makes them naturally.</p>
+        <p class="svc-hero-sub">Board-certified integrative health coaching that works at the identity level — not the symptom level. We don't chase habits. We build the person who makes them naturally.</p>
         <div style="display:flex;gap:14px;flex-wrap:wrap">
           <button class="btn btn-fill" onclick="window.open('https://outlook.office.com/book/ForgePerformanceCo@teamfpco.com/s/KTdW_Kn33E-D4ct4IgryLw2','_blank')">Book Free Discovery Call →</button>
         </div>
@@ -2345,15 +2589,19 @@ footer {
       <button class="btn btn-fill" onclick="window.open('https://outlook.office.com/book/ForgePerformanceCo@teamfpco.com/s/KTdW_Kn33E-D4ct4IgryLw2','_blank')">Book Free Discovery Call →</button>
     </div>
   </div>
+  <div class="svc-mobile-cta">
+    <button class="btn btn-fill" onclick="window.open('https://outlook.office.com/book/ForgePerformanceCo@teamfpco.com/s/KTdW_Kn33E-D4ct4IgryLw2','_blank')">Book Free Discovery Call</button>
+  </div>
 </div>
 
 <!-- ════════════════════════════════
      FORGE INTELLIGENCE OVERLAY
 ════════════════════════════════ -->
-<div class="svc-overlay" id="overlay-intelligence">
+<div class="svc-overlay" id="overlay-intelligence" role="dialog" aria-modal="true" aria-labelledby="overlay-intelligence-title" aria-hidden="true">
   <div class="svc-nav">
     <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." style="height:52px;width:auto;object-fit:contain;"/>
-    <button class="svc-close" onclick="closeOverlay('intelligence')">Close <div class="svc-close-x">✕</div></button>
+    <div class="svc-nav-title" id="overlay-intelligence-title">Forge Intelligence</div>
+    <button class="svc-close" onclick="closeOverlay('intelligence')" aria-label="Close overlay">Close <div class="svc-close-x" aria-hidden="true">✕</div></button>
   </div>
   <div class="svc-content">
     <div class="svc-hero">
@@ -2439,18 +2687,22 @@ footer {
 
     <div class="svc-cta-bar">
       <div class="svc-cta-quote">Ready to navigate AI with <em>confidence and integrity?</em></div>
-      <button class="btn btn-fill" onclick="closeOverlay('intelligence'); document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Inquire About Advisory →</button>
+      <button class="btn btn-fill" onclick="closeOverlay('intelligence'); prefillInterestAndScroll('Forge Intelligence')">Inquire About Advisory →</button>
     </div>
+  </div>
+  <div class="svc-mobile-cta">
+    <button class="btn btn-fill" onclick="closeOverlay('intelligence'); prefillInterestAndScroll('Forge Intelligence')">Inquire About Advisory</button>
   </div>
 </div>
 
 <!-- ════════════════════════════════
      FORGED FORWARD OVERLAY
 ════════════════════════════════ -->
-<div class="svc-overlay" id="overlay-podcast">
+<div class="svc-overlay" id="overlay-podcast" role="dialog" aria-modal="true" aria-labelledby="overlay-podcast-title" aria-hidden="true">
   <div class="svc-nav">
     <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." style="height:52px;width:auto;object-fit:contain;"/>
-    <button class="svc-close" onclick="closeOverlay('podcast')">Close <div class="svc-close-x">✕</div></button>
+    <div class="svc-nav-title" id="overlay-podcast-title">Forged Forward</div>
+    <button class="svc-close" onclick="closeOverlay('podcast')" aria-label="Close overlay">Close <div class="svc-close-x" aria-hidden="true">✕</div></button>
   </div>
   <div class="svc-content">
     <div class="svc-hero">
@@ -2467,7 +2719,7 @@ footer {
     <div class="svc-section">
       <div class="svc-section-kicker">About the Show</div>
       <h3 class="svc-section-title">The Unfiltered <em>Conversation.</em></h3>
-      <p class="svc-body">In a world of overproduced, over-edited podcasts, Forged Forward earns trust through consistency and authenticity. Every episode is a direct line into the thinking, experience, and philosophy behind Forge — hosted by a Marine Corps veteran, technologist, and Certified Integrative Health Coach coach.</p>
+      <p class="svc-body">In a world of overproduced, over-edited podcasts, Forged Forward earns trust through consistency and authenticity. Every episode is a direct line into the thinking, experience, and philosophy behind Forge — hosted by a Marine Corps veteran, technologist, and Certified Integrative Health Coach.</p>
       <p class="svc-body">Guests include coaches, athletes, veterans, entrepreneurs, and thought leaders navigating the intersection of identity, performance, and modern life. The conversations are honest. The takeaways are real.</p>
     </div>
 
@@ -2487,7 +2739,7 @@ footer {
       </div>
     </div>
 
-    <div class="svc-section">
+    <div class="svc-section" id="podcastGuest">
       <div class="svc-section-kicker">Be a Guest</div>
       <h3 class="svc-section-title">Have a Story<br>Worth <em>Telling?</em></h3>
       <p class="svc-body">Forged Forward is actively looking for guests who are doing real work — coaches, athletes, veterans, entrepreneurs, and thinkers who have something honest to say about performance, identity, and becoming. If that's you, pitch yourself below.</p>
@@ -2522,19 +2774,24 @@ footer {
     <div class="svc-cta-bar">
       <div class="svc-cta-quote">Listen, watch, or <em>be part of the conversation.</em></div>
       <div style="display:flex;gap:14px;flex-wrap:wrap">
-        <button class="btn btn-fill" style="background:var(--ember)" onclick="closeOverlay('podcast')">Listen Now →</button>
+        <button class="btn btn-fill" style="background:var(--ember)" onclick="window.open('https://open.spotify.com/show/5ft7GNkKRGCrXb3bovPTbC','_blank')">Listen on Spotify →</button>
       </div>
     </div>
+  </div>
+  <div class="svc-mobile-cta">
+    <button class="btn btn-fill" style="background:var(--ember)" onclick="window.open('https://open.spotify.com/show/5ft7GNkKRGCrXb3bovPTbC','_blank')">Listen on Spotify</button>
+    <button class="btn btn-outline" onclick="scrollToPodcastGuest()">Be a Guest</button>
   </div>
 </div>
 
 <!-- ════════════════════════════════
      PRIVACY POLICY OVERLAY
 ════════════════════════════════ -->
-<div class="svc-overlay" id="overlay-privacy">
+<div class="svc-overlay" id="overlay-privacy" role="dialog" aria-modal="true" aria-labelledby="overlay-privacy-title" aria-hidden="true">
   <div class="svc-nav">
     <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." style="height:52px;width:auto;object-fit:contain;"/>
-    <button class="svc-close" onclick="closeOverlay('privacy')">Close <div class="svc-close-x">✕</div></button>
+    <div class="svc-nav-title" id="overlay-privacy-title">Privacy</div>
+    <button class="svc-close" onclick="closeOverlay('privacy')" aria-label="Close overlay">Close <div class="svc-close-x" aria-hidden="true">✕</div></button>
   </div>
   <div class="svc-content">
     <div class="svc-hero" style="grid-template-columns:1fr">
@@ -2581,10 +2838,11 @@ footer {
 <!-- ════════════════════════════════
      TERMS OF SERVICE OVERLAY
 ════════════════════════════════ -->
-<div class="svc-overlay" id="overlay-terms">
+<div class="svc-overlay" id="overlay-terms" role="dialog" aria-modal="true" aria-labelledby="overlay-terms-title" aria-hidden="true">
   <div class="svc-nav">
     <img src="assets/images/forge/primary_logo_banner_transparent.png" alt="Forge Performance Co." style="height:52px;width:auto;object-fit:contain;"/>
-    <button class="svc-close" onclick="closeOverlay('terms')">Close <div class="svc-close-x">✕</div></button>
+    <div class="svc-nav-title" id="overlay-terms-title">Terms</div>
+    <button class="svc-close" onclick="closeOverlay('terms')" aria-label="Close overlay">Close <div class="svc-close-x" aria-hidden="true">✕</div></button>
   </div>
   <div class="svc-content">
     <div class="svc-hero" style="grid-template-columns:1fr">
@@ -2636,22 +2894,163 @@ footer {
 </div>
 
 <script>
-// ── Service overlays ────────────────────────
-function openOverlay(id) {
-  closeAllOverlays();
-  const el = document.getElementById('overlay-' + id);
-  if (el) { el.classList.add('open'); el.scrollTop = 0; document.body.style.overflow = 'hidden'; }
+// ── Overlay state + scroll restore ──────────────────
+let _scrollY = 0;
+const HASH_TO_OVERLAY = {
+  'soulfuel':           'soulfuel',
+  'forge-intelligence': 'intelligence',
+  'forged-forward':     'podcast',
+  'about':              'about',
+  'privacy':            'privacy',
+  'terms':              'terms',
+};
+const OVERLAY_TO_HASH = {
+  'soulfuel':     '#soulfuel',
+  'intelligence': '#forge-intelligence',
+  'podcast':      '#forged-forward',
+  'about':        '#about',
+  'privacy':      '#privacy',
+  'terms':        '#terms',
+};
+
+function _lockBody() {
+  _scrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = '-' + _scrollY + 'px';
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
 }
-function closeOverlay(id) {
-  const el = document.getElementById('overlay-' + id);
-  if (el) el.classList.remove('open');
+function _unlockBody() {
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
   document.body.style.overflow = '';
+  if (_scrollY) {
+    window.scrollTo(0, _scrollY);
+    _scrollY = 0;
+  }
+}
+
+// ── Service overlays ────────────────────────
+function openOverlay(id, opts) {
+  opts = opts || {};
+  _closeAllOverlaysSilent();
+  const el = document.getElementById('overlay-' + id);
+  if (!el) return;
+  el.classList.add('open');
+  el.setAttribute('aria-hidden', 'false');
+  el.scrollTop = 0;
+  if (!document.body.style.position) _lockBody();
+  // Move focus to the close button for accessibility
+  setTimeout(() => {
+    const close = el.querySelector('.svc-close, .about-close');
+    if (close) close.focus({ preventScroll: true });
+  }, 200);
+  // Update URL hash
+  if (!opts.skipHash && OVERLAY_TO_HASH[id]) {
+    const desired = OVERLAY_TO_HASH[id];
+    if (location.hash !== desired) {
+      history.pushState({ overlay: id }, '', desired);
+    }
+  }
+}
+function closeOverlay(id, opts) {
+  opts = opts || {};
+  const el = document.getElementById('overlay-' + id);
+  if (el) { el.classList.remove('open'); el.setAttribute('aria-hidden', 'true'); }
+  _unlockBody();
+  if (!opts.skipHash && location.hash && OVERLAY_TO_HASH[id] === location.hash) {
+    history.pushState({}, '', location.pathname + location.search);
+  }
+}
+function _closeAllOverlaysSilent() {
+  document.querySelectorAll('.svc-overlay, .about-overlay').forEach(el => {
+    el.classList.remove('open');
+    el.setAttribute('aria-hidden', 'true');
+  });
 }
 function closeAllOverlays() {
-  document.querySelectorAll('.svc-overlay, .about-overlay').forEach(el => el.classList.remove('open'));
-  document.body.style.overflow = '';
+  _closeAllOverlaysSilent();
+  _unlockBody();
+  if (location.hash && Object.values(OVERLAY_TO_HASH).indexOf(location.hash) !== -1) {
+    history.pushState({}, '', location.pathname + location.search);
+  }
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeAllOverlays(); closeAbout(); } });
+
+// ── About overlay ───────────────────────────
+function openAbout() { openOverlay('about'); }
+function closeAbout() { closeOverlay('about'); }
+// Map "about" → aboutOverlay element
+(function patchAboutOverlay() {
+  const ao = document.getElementById('aboutOverlay');
+  if (ao && !document.getElementById('overlay-about')) ao.id = 'overlay-about';
+})();
+
+// ── Podcast guest jump ──────────────────────
+function openPodcastGuest() {
+  openOverlay('podcast');
+  setTimeout(scrollToPodcastGuest, 700);
+}
+function scrollToPodcastGuest() {
+  const overlay = document.getElementById('overlay-podcast');
+  const target  = document.getElementById('podcastGuest');
+  if (overlay && target) {
+    const navH = 72;
+    const top  = target.offsetTop - navH - 12;
+    overlay.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    setTimeout(() => {
+      const firstField = document.getElementById('g-name');
+      if (firstField) firstField.focus({ preventScroll: true });
+    }, 600);
+  }
+}
+
+// ── Prefill contact interest from CTA ───────
+function prefillInterestAndScroll(value) {
+  document.querySelectorAll('.f-pill').forEach(p => {
+    if (p.dataset.value === value) {
+      p.classList.add('active');
+      p.setAttribute('aria-pressed', 'true');
+    }
+  });
+  const pillError = document.getElementById('pill-error');
+  if (pillError) pillError.style.display = 'none';
+  const contact = document.getElementById('contact');
+  if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ── Escape closes overlays ──────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAllOverlays();
+});
+
+// ── History back closes overlay ─────────────
+window.addEventListener('popstate', () => {
+  applyHashState();
+});
+function applyHashState() {
+  const hash = location.hash.replace('#','');
+  const target = HASH_TO_OVERLAY[hash];
+  // Close any overlay that doesn't match the hash
+  document.querySelectorAll('.svc-overlay, .about-overlay').forEach(el => {
+    const id = el.id.replace('overlay-','');
+    if (id !== target) {
+      el.classList.remove('open');
+      el.setAttribute('aria-hidden', 'true');
+    }
+  });
+  if (target) {
+    openOverlay(target, { skipHash: true });
+  } else {
+    _unlockBody();
+  }
+}
+window.addEventListener('DOMContentLoaded', () => {
+  if (location.hash) applyHashState();
+});
 
 function submitGuest() {
   const n = document.getElementById('g-name').value.trim();
@@ -2661,19 +3060,6 @@ function submitGuest() {
   document.getElementById('guestForm').style.display = 'none';
   document.getElementById('guestSuccess').style.display = 'block';
 }
-
-// ── About overlay ───────────────────────────
-function openAbout() {
-  const o = document.getElementById('aboutOverlay');
-  o.classList.add('open');
-  o.scrollTop = 0;
-  document.body.style.overflow = 'hidden';
-}
-function closeAbout() {
-  document.getElementById('aboutOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAbout(); });
 
 // ── Custom cursor (desktop only) ───────────────────
 if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
@@ -2713,12 +3099,16 @@ const mobNav = document.getElementById('mobNav');
 const mobCl  = document.getElementById('mobClose');
 ham.addEventListener('click', () => {
   mobNav.classList.add('open');
+  mobNav.setAttribute('aria-hidden', 'false');
   ham.classList.add('hidden');
+  ham.setAttribute('aria-expanded', 'true');
 });
 mobCl.addEventListener('click', closeMob);
 function closeMob() {
   mobNav.classList.remove('open');
+  mobNav.setAttribute('aria-hidden', 'true');
   ham.classList.remove('hidden');
+  ham.setAttribute('aria-expanded', 'false');
 }
 
 // ── Scroll reveal ──────────────────────────────────
@@ -2742,6 +3132,7 @@ const TYPO_MAP = {
 document.querySelectorAll('.f-pill').forEach(pill => {
   pill.addEventListener('click', () => {
     pill.classList.toggle('active');
+    pill.setAttribute('aria-pressed', pill.classList.contains('active') ? 'true' : 'false');
     document.getElementById('pill-error').style.display = 'none';
   });
 });
@@ -2769,17 +3160,26 @@ document.getElementById('fe').addEventListener('blur', () => {
 async function handleSubmit() {
   const n   = document.getElementById('fn').value.trim();
   const e   = document.getElementById('fe').value.trim();
-  const ln  = document.querySelector('#cForm .f-row .f-group:last-child .f-input').value.trim();
-  const msg = document.querySelector('.f-textarea').value.trim();
+  const ln  = document.getElementById('ln').value.trim();
+  const msg = document.getElementById('fmsg').value.trim();
+  const fnError   = document.getElementById('fn-error');
+  const feError   = document.getElementById('fe-error');
+  const pillError = document.getElementById('pill-error');
 
-  if (!n) { alert('Please fill in your first name.'); return; }
-  if (!EMAIL_RE.test(e)) { alert('Please enter a valid email address.'); return; }
+  fnError.style.display   = 'none';
+  feError.style.display   = 'none';
+  pillError.style.display = 'none';
+
+  let firstInvalid = null;
+  if (!n) { fnError.style.display = 'block'; firstInvalid = firstInvalid || document.getElementById('fn'); }
+  if (!EMAIL_RE.test(e)) { feError.style.display = 'block'; firstInvalid = firstInvalid || document.getElementById('fe'); }
 
   const activePills = [...document.querySelectorAll('.f-pill.active')];
   if (!activePills.length) {
-    document.getElementById('pill-error').style.display = 'block';
-    return;
+    pillError.style.display = 'block';
+    firstInvalid = firstInvalid || document.querySelector('.f-pill');
   }
+  if (firstInvalid) { firstInvalid.focus(); return; }
   const source = activePills.map(p => p.dataset.value).join(', ');
 
   const btn = document.querySelector('.f-submit');
@@ -2815,11 +3215,16 @@ async function handleSubmit() {
 function resetForm() {
   document.getElementById('fn').value = '';
   document.getElementById('fe').value = '';
-  document.querySelector('#cForm .f-row .f-group:last-child .f-input').value = '';
-  document.querySelector('.f-textarea').value = '';
-  document.querySelectorAll('.f-pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('ln').value = '';
+  document.getElementById('fmsg').value = '';
+  document.querySelectorAll('.f-pill').forEach(p => {
+    p.classList.remove('active');
+    p.setAttribute('aria-pressed', 'false');
+  });
   document.getElementById('email-suggest').style.display = 'none';
   document.getElementById('pill-error').style.display    = 'none';
+  document.getElementById('fn-error').style.display      = 'none';
+  document.getElementById('fe-error').style.display      = 'none';
   const btn = document.querySelector('.f-submit');
   btn.textContent = 'Send Message →';
   btn.disabled = false;
